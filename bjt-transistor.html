@@ -1,0 +1,1177 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NPN BJT Transistor Lab | ELECTRO-3D LAB</title>
+
+    <link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+}
+</script>
+    <style>
+        .bjt-intro {
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        .bjt-lab {
+            max-width: 1100px;
+            margin: auto;
+            padding: 25px;
+        }
+
+        .bjt-panel {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .bjt-viewer {
+            width: 100%;
+            height: 450px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #101827;
+        }
+
+        .bjt-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .bjt-controls button {
+            padding: 11px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .bjt-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .bjt-terminal {
+            padding: 18px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.07);
+        }
+
+        @media (max-width: 600px) {
+            .bjt-viewer {
+                height: 330px;
+            }
+        }
+
+/* Current flow simulation */
+
+.current-track {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.flow-line {
+    flex: 1;
+    height: 8px;
+    background: #34445c;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.flow-particle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 8px;
+    border-radius: 20px;
+    animation: currentFlow 1.5s linear infinite;
+    animation-play-state: paused;
+}
+
+.electron-particle {
+    background: #42a5ff;
+}
+
+.conventional-particle {
+    background: #ff4545;
+    animation-direction: reverse;
+}
+
+.base-particle {
+    background: #43e28b;
+}
+
+@keyframes currentFlow {
+    from {
+        left: 0;
+    }
+
+    to {
+        left: calc(100% - 15px);
+    }
+}
+
+#flow-status {
+    text-align: center;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+#bjt-viewer {
+    position: relative;
+    overflow: hidden;
+    background: #07111f;
+}
+
+#bjt-camera-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+#bjt-camera-overlay {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    color: #42a5ff;
+    font-size: 12px;
+    letter-spacing: 2px;
+    pointer-events: none;
+}
+
+#bjt-viewer canvas {
+    position: relative;
+    z-index: 1;
+}
+/* Internal BJT Camera Background */
+
+#internal-bjt-viewer {
+    position: relative;
+    overflow: hidden;
+    background: #07111f;
+}
+
+#internal-camera-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+#internal-bjt-viewer canvas {
+    position: relative;
+    z-index: 1;
+}
+
+.bjt-camera-overlay {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    color: #42a5ff;
+    font-size: 12px;
+    letter-spacing: 2px;
+    pointer-events: none;
+}
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">⚡ ELECTRO-3D LAB</div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="semiconductor-devices.html">Devices</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="bjt-intro">
+            <p class="tagline">SEMICONDUCTOR DEVICES LABORATORY</p>
+
+            <h1>NPN <span>BJT Transistor</span></h1>
+
+            <p class="description">
+                Explore the internal structure, terminals
+                and working principle of an NPN transistor.
+            </p>
+        </section>
+
+        <section class="bjt-lab">
+
+<div class="bjt-panel">
+    <h2>Transistor Operating Modes</h2>
+
+    <p>Select an operating mode to understand transistor behaviour.</p>
+
+    <div class="bjt-controls">
+        <button class="mode-btn" data-mode="cutoff">Cut-off</button>
+        <button class="mode-btn" data-mode="active">Forward Active</button>
+        <button class="mode-btn" data-mode="saturation">Saturation</button>
+    </div>
+
+    <div class="bjt-terminal" id="mode-info" style="margin-top: 20px;">
+        <h3>Select an operating mode</h3>
+        <p>Its working principle will appear here.</p>
+    </div>
+</div>
+
+            <div class="bjt-panel">
+                <h2>3D Transistor Laboratory</h2>
+
+                <p>
+                    Explore the transistor model in an interactive
+                    3D environment.
+                </p>
+
+               <div id="bjt-viewer" class="bjt-viewer">
+
+    <video id="bjt-camera-background"
+           autoplay
+           playsinline
+           muted>
+    </video>
+
+    <div id="bjt-camera-overlay">
+        3D TRANSISTOR LAB
+    </div>
+
+</div>
+
+                <div class="bjt-controls">
+                    <button id="rotate-btn">Pause Rotation</button>
+                    <button id="reset-btn">Reset View</button>
+                </div>
+             
+<div class="bjt-controls">
+    <button id="start-camera">Start Camera</button>
+    <button id="reset-camera">Reset Camera</button>
+    <span id="camera-status">Camera is not started</span>
+</div>
+
+
+<video id="webcam" autoplay playsinline
+       style="display:none;"></video>
+            </div>
+
+            <div class="bjt-panel">
+                <h2>Transistor Terminals</h2>
+
+              
+<div class="bjt-info-grid">
+
+    <button class="bjt-terminal" data-terminal="collector">
+        <h3>Collector (C)</h3>
+        <p>Click to learn about Collector.</p>
+    </button>
+
+    <button class="bjt-terminal" data-terminal="base">
+        <h3>Base (B)</h3>
+        <p>Click to learn about Base.</p>
+    </button>
+
+    <button class="bjt-terminal" data-terminal="emitter">
+        <h3>Emitter (E)</h3>
+        <p>Click to learn about Emitter.</p>
+    </button>
+
+</div>
+
+<div class="bjt-terminal" id="terminal-info" style="margin-top: 20px;">
+    <h3>Select a transistor terminal</h3>
+    <p>Click any terminal above to explore its function.</p>
+</div>
+
+            </div>
+
+<!-- Current Flow Simulation -->
+
+<div class="bjt-panel" id="current-simulation">
+
+    <h2>Current Flow Simulation</h2>
+
+    <p>
+        Observe how electrons and conventional current
+        flow through an NPN transistor.
+    </p>
+
+    <div class="bjt-terminal">
+
+        <h3>1. Electron Flow</h3>
+        <p>Emitter → Collector</p>
+
+        <div class="current-track">
+            <span>Emitter (E)</span>
+            <div class="flow-line">
+                <div class="flow-particle electron-particle"></div>
+            </div>
+            <span>Collector (C)</span>
+        </div>
+
+    </div>
+
+    <div class="bjt-terminal">
+
+        <h3>2. Conventional Current</h3>
+        <p>Collector → Emitter</p>
+
+        <div class="current-track">
+            <span>Emitter (E)</span>
+            <div class="flow-line">
+                <div class="flow-particle conventional-particle"></div>
+            </div>
+            <span>Collector (C)</span>
+        </div>
+
+    </div>
+
+    <div class="bjt-terminal">
+
+        <h3>3. Base Current</h3>
+        <p>Conventional base current enters the Base terminal.</p>
+
+        <div class="current-track">
+            <span>Outside</span>
+            <div class="flow-line">
+                <div class="flow-particle base-particle"></div>
+            </div>
+            <span>Base (B)</span>
+        </div>
+
+    </div>
+
+  
+
+<!-- BJT Current Calculator -->
+
+<div class="bjt-panel" id="bjt-calculator">
+
+    <h2>Interactive BJT Current Calculator</h2>
+
+    <p>
+        Adjust base current and current gain to calculate
+        the collector current.
+    </p>
+
+    <div class="bjt-terminal">
+
+        <label for="base-current">
+            Base Current (IB): <strong id="ib-value">20 µA</strong>
+        </label>
+
+        <input
+            type="range"
+            id="base-current"
+            min="0"
+            max="100"
+            value="20"
+            step="1"
+        >
+
+    </div>
+
+    <div class="bjt-terminal">
+
+        <label for="current-gain">
+            Current Gain (β): <strong id="beta-value">100</strong>
+        </label>
+
+        <input
+            type="range"
+            id="current-gain"
+            min="20"
+            max="200"
+            value="100"
+            step="5"
+        >
+
+    </div>
+
+    <div class="bjt-terminal">
+
+        <h3>Collector Current (IC)</h3>
+
+        <h2 id="ic-result">2.00 mA</h2>
+
+        <p>Formula: IC = β × IB</p>
+
+    </div>
+
+</div>
+
+<!-- Common Emitter Voltage Simulator -->
+
+<div class="bjt-panel" id="voltage-simulator">
+
+    <h2>Common Emitter Voltage Simulator</h2>
+
+    <p>Adjust the supply voltage and collector resistance.</p>
+
+    <div class="bjt-terminal">
+        <label for="vcc-slider">
+            Supply Voltage (VCC):
+            <strong id="vcc-value">10 V</strong>
+        </label>
+
+        <input type="range" id="vcc-slider"
+               min="5" max="12" value="10" step="1">
+    </div>
+
+    <div class="bjt-terminal">
+        <label for="rc-slider">
+            Collector Resistance (RC):
+            <strong id="rc-value">1 kΩ</strong>
+        </label>
+
+        <input type="range" id="rc-slider"
+               min="1" max="10" value="1" step="1">
+    </div>
+
+    <div class="bjt-terminal">
+        <h3>Collector-Emitter Voltage (VCE)</h3>
+        <h2 id="vce-result">8 V</h2>
+
+        <h3>Operating State</h3>
+        <h2 id="operating-state">Active</h2>
+
+        <p id="voltage-explanation">
+            The transistor is operating in the active region.
+        </p>
+    </div>
+
+</div>
+
+<!-- Common Emitter Circuit Diagram -->
+
+<div class="bjt-panel">
+
+    <h2>Common Emitter Circuit Diagram</h2>
+
+    <p>Basic NPN transistor common-emitter configuration.</p>
+
+    <div style="background:#ffffff; padding:15px; border-radius:12px; overflow-x:auto;">
+
+        <svg viewBox="0 0 500 390" width="100%" style="min-width:320px;">
+
+            <g stroke="#172033" stroke-width="3" fill="none">
+
+                <!-- Supply and collector resistor -->
+                <path d="M250 35 V65"/>
+                <path d="M235 65 H265 L235 80 L265 95 L235 110 L265 125 L250 135"/>
+                <path d="M250 135 V160"/>
+
+                <!-- Collector connection -->
+                <path d="M250 160 L250 195"/>
+
+                <!-- Transistor symbol -->
+                <circle cx="250" cy="230" r="38"/>
+
+                <path d="M250 195 V215"/>
+                <path d="M250 245 V265"/>
+                <path d="M250 215 L230 235"/>
+                <path d="M250 245 L270 225"/>
+
+                <!-- Emitter arrow -->
+                <path d="M250 265 L270 245"/>
+                <path d="M261 246 L270 245 L269 254"/>
+
+                <!-- Base -->
+                <path d="M120 230 H212"/>
+
+                <!-- Emitter to ground -->
+                <path d="M250 265 V320"/>
+                <path d="M225 320 H275"/>
+                <path d="M233 330 H267"/>
+                <path d="M242 340 H258"/>
+
+                <!-- Supply symbol -->
+                <path d="M225 35 H275"/>
+
+            </g>
+
+            <g fill="#172033" font-size="15" font-family="Arial">
+
+                <text x="285" y="43">+VCC</text>
+                <text x="285" y="100">RC</text>
+                <text x="285" y="185">Collector (C)</text>
+                <text x="285" y="235">NPN</text>
+                <text x="65" y="220">Base (B)</text>
+                <text x="285" y="285">Emitter (E)</text>
+                <text x="280" y="343">Ground</text>
+
+            </g>
+
+        </svg>
+
+    </div>
+
+    <p style="margin-top:15px;">
+        <strong>Note:</strong> This is a simplified common-emitter
+        circuit illustration. A practical circuit also requires
+        appropriate base-bias and input connections.
+    </p>
+
+</div>
+
+            <div class="bjt-panel">
+                <h2>Working Principle</h2>
+
+                <p>
+                    An NPN transistor is a three-terminal
+                    semiconductor device consisting of two
+                    N-type regions separated by a thin P-type region.
+                </p>
+
+                <p>
+                    A small base current controls a larger
+                    collector current when the transistor operates
+                    in the forward-active region.
+                </p>
+
+                <p>
+                    Conventional current flows from Collector
+                    to Emitter in normal active operation.
+                </p>
+            </div>
+
+        </section>
+
+<!-- Circuit Component Explanations -->
+
+<section class="bjt-lab">
+
+    <div class="bjt-panel">
+
+        <h2>Understanding Circuit Components</h2>
+
+        <div class="bjt-info-grid">
+
+            <div class="bjt-terminal">
+                <h3>VCC — Supply Voltage</h3>
+                <p>Provides the DC supply required for transistor operation.</p>
+            </div>
+
+            <div class="bjt-terminal">
+                <h3>RC — Collector Resistor</h3>
+                <p>Limits collector current and develops an output voltage.</p>
+            </div>
+
+            <div class="bjt-terminal">
+                <h3>NPN Transistor</h3>
+                <p>Controls collector current using base current.</p>
+            </div>
+
+            <div class="bjt-terminal">
+                <h3>Ground</h3>
+                <p>Provides the common reference point for circuit voltages.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- NPN BJT Knowledge Quiz -->
+
+<section class="bjt-lab">
+
+    <div class="bjt-panel">
+
+        <h2>NPN BJT Knowledge Test</h2>
+
+        <p>Test your understanding of NPN transistors.</p>
+
+        <div id="bjt-quiz">
+
+            <div class="bjt-terminal">
+                <h3>1. How many terminals does a BJT have?</h3>
+
+                <label><input type="radio" name="q1" value="a"> Two</label><br>
+                <label><input type="radio" name="q1" value="b"> Three</label><br>
+                <label><input type="radio" name="q1" value="c"> Four</label>
+            </div>
+
+            <div class="bjt-terminal">
+                <h3>2. Which region is thin in an NPN transistor?</h3>
+
+                <label><input type="radio" name="q2" value="a"> Base</label><br>
+                <label><input type="radio" name="q2" value="b"> Collector</label><br>
+                <label><input type="radio" name="q2" value="c"> Emitter</label>
+            </div>
+
+            <div class="bjt-terminal">
+                <h3>3. Which mode is used for amplification?</h3>
+
+                <label><input type="radio" name="q3" value="a"> Cut-off</label><br>
+                <label><input type="radio" name="q3" value="b"> Saturation</label><br>
+                <label><input type="radio" name="q3" value="c"> Forward Active</label>
+            </div>
+
+            <div class="bjt-terminal">
+                <h3>4. What controls collector current in active mode?</h3>
+
+                <label><input type="radio" name="q4" value="a"> Base current</label><br>
+                <label><input type="radio" name="q4" value="b"> Ground</label><br>
+                <label><input type="radio" name="q4" value="c"> Collector resistor alone</label>
+            </div>
+
+            <div class="bjt-terminal">
+                <h3>5. What is the approximate VCE in saturation?</h3>
+
+                <label><input type="radio" name="q5" value="a"> 10 V</label><br>
+                <label><input type="radio" name="q5" value="b"> 0.2 V</label><br>
+                <label><input type="radio" name="q5" value="c"> 5 V</label>
+            </div>
+
+            <div class="bjt-controls">
+                <button id="submit-quiz">Submit Quiz</button>
+                <button id="reset-quiz">Reset Quiz</button>
+            </div>
+
+            <div class="bjt-terminal" id="quiz-result">
+                <h3>Your result will appear here.</h3>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- NPN Internal Semiconductor Structure -->
+
+<section class="bjt-lab">
+
+    <div class="bjt-panel">
+
+        <h2>Internal Semiconductor Structure</h2>
+
+        <p>
+            Explore the three semiconductor regions
+            that form an NPN bipolar junction transistor.
+        </p>
+
+       <div id="internal-bjt-viewer" class="bjt-viewer">
+
+    <video id="internal-camera-background"
+           autoplay
+           playsinline
+           muted>
+    </video>
+
+    <div class="bjt-camera-overlay">
+        INTERNAL SEMICONDUCTOR LAB
+    </div>
+
+</div>
+
+        <div class="bjt-controls">
+
+            <button id="internal-rotate">
+                Pause Rotation
+            </button>
+
+            <button id="internal-reset">
+                Reset View
+            </button>
+  <button id="electron-pause">
+        Pause Electrons
+    </button>
+
+    <button id="electron-reset">
+        Reset Electrons
+    </button>
+        </div>
+          <div class="bjt-controls">
+
+        <button id="flow-start">Start</button>
+        <button id="flow-pause">Pause</button>
+        <button id="flow-reset">Reset</button>
+<button id="internal-start-camera">
+    Start Camera
+</button>
+
+<button id="internal-reset-camera">
+    Reset Camera
+</button>
+
+<span id="internal-camera-status">
+    Camera is not started
+</span>
+    </div>
+
+    <p id="flow-status">Simulation ready. Press Start.</p>
+
+</div>
+
+        <div class="bjt-info-grid">
+
+            <div class="bjt-terminal">
+                <h3 style="color:#42a5ff;">N-Type Emitter</h3>
+                <p>Heavily doped region that injects electrons.</p>
+            </div>
+
+            <div class="bjt-terminal">
+                <h3 style="color:#ffca52;">P-Type Base</h3>
+                <p>Very thin and lightly doped middle region.</p>
+            </div>
+
+            <div class="bjt-terminal">
+                <h3 style="color:#43e28b;">N-Type Collector</h3>
+                <p>Collects electrons passing through the base.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+<div class="bjt-panel">
+
+    <h2>Understanding Electron Flow</h2>
+
+    <p>
+        In an NPN transistor operating in forward-active mode,
+        electrons move from the N-type emitter, through the
+        thin P-type base, towards the N-type collector.
+    </p>
+
+    <p>
+        Conventional current flows in the opposite direction:
+        from collector to emitter.
+    </p>
+
+    <p>
+        Only a small fraction of injected electrons recombine
+        in the base, producing the base current.
+    </p>
+
+</div>
+
+<div class="bjt-info-grid">
+
+    <div class="bjt-terminal">
+        <h3 style="color:#42a5ff;">Electron Flow</h3>
+        <h2>Emitter → Collector</h2>
+        <p>Electrons move from E to C.</p>
+    </div>
+
+    <div class="bjt-terminal">
+        <h3 style="color:#ff4545;">Conventional Current</h3>
+        <h2>Collector → Emitter</h2>
+        <p>Conventional current flows from C to E.</p>
+    </div>
+
+</div>
+
+<div class="bjt-panel">
+
+    <h2>Semiconductor Doping Comparison</h2>
+
+    <p>
+        Doping means adding controlled impurities to a pure
+        semiconductor to increase its electrical conductivity.
+    </p>
+
+    <div class="bjt-info-grid">
+
+        <div class="bjt-terminal">
+            <h3 style="color:#42a5ff;">Emitter</h3>
+            <h2>Heavily Doped</h2>
+            <p>Provides a large number of charge carriers.</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3 style="color:#ffca52;">Base</h3>
+            <h2>Lightly Doped</h2>
+            <p>Reduces recombination of injected electrons.</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3 style="color:#43e28b;">Collector</h3>
+            <h2>Moderately Doped</h2>
+            <p>Collects charge carriers and handles heat dissipation.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="bjt-panel">
+
+    <h2>PN Junctions in an NPN Transistor</h2>
+
+    <div class="bjt-info-grid">
+
+        <div class="bjt-terminal">
+            <h3 style="color:#42a5ff;">Emitter–Base Junction</h3>
+            <h2>EB Junction</h2>
+            <p>
+                Forward biased in the forward-active operating mode.
+                It allows electrons to enter the base region.
+            </p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3 style="color:#43e28b;">Collector–Base Junction</h3>
+            <h2>CB Junction</h2>
+            <p>
+                Reverse biased in the forward-active operating mode.
+                It helps collect electrons into the collector.
+            </p>
+        </div>
+
+    </div>
+
+    <p style="text-align:center; margin-top:20px;">
+        <strong>Forward Active Mode:</strong>
+        EB = Forward Bias | CB = Reverse Bias
+    </p>
+
+</div>
+
+<div class="bjt-panel">
+
+    <h2>NPN vs PNP Transistor</h2>
+
+    <div class="bjt-info-grid">
+
+        <div class="bjt-terminal">
+            <h3 style="color:#42a5ff;">NPN Transistor</h3>
+            <p><strong>Structure:</strong> N-P-N</p>
+            <p><strong>Majority carriers:</strong> Electrons</p>
+            <p><strong>Conventional current:</strong> Collector to Emitter</p>
+            <p><strong>Base voltage:</strong> Higher than emitter for forward-active operation</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3 style="color:#ffca52;">PNP Transistor</h3>
+            <p><strong>Structure:</strong> P-N-P</p>
+            <p><strong>Majority carriers:</strong> Holes</p>
+            <p><strong>Conventional current:</strong> Emitter to Collector</p>
+            <p><strong>Base voltage:</strong> Lower than emitter for forward-active operation</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="bjt-panel">
+
+    <h2>Applications of NPN Transistors</h2>
+
+    <div class="bjt-info-grid">
+
+        <div class="bjt-terminal">
+            <h3>1. Amplifier</h3>
+            <p>Amplifies weak electrical signals in audio and electronic circuits.</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3>2. Electronic Switch</h3>
+            <p>Controls LEDs, relays and other electronic loads.</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3>3. Oscillator</h3>
+            <p>Helps generate periodic electrical signals.</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3>4. Digital Circuits</h3>
+            <p>Used in switching and logic circuit applications.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="bjt-panel">
+
+    <h2>NPN Transistor Circuit Symbol</h2>
+
+    <div style="display:flex; justify-content:center; padding:20px;">
+
+        <svg viewBox="0 0 320 260"
+             width="320"
+             style="max-width:100%;">
+
+            <!-- Base -->
+            <line x1="55" y1="130" x2="145" y2="130"
+                  stroke="#42a5ff" stroke-width="5"/>
+
+            <!-- Transistor body -->
+            <circle cx="165" cy="130" r="55"
+                    fill="none" stroke="#ffffff"
+                    stroke-width="3"/>
+
+            <!-- Base line -->
+            <line x1="145" y1="90" x2="145" y2="170"
+                  stroke="#ffffff" stroke-width="5"/>
+
+            <!-- Collector -->
+            <line x1="145" y1="105" x2="210" y2="45"
+                  stroke="#ff4545" stroke-width="5"/>
+
+            <line x1="210" y1="45" x2="210" y2="15"
+                  stroke="#ff4545" stroke-width="5"/>
+
+            <!-- Emitter -->
+            <line x1="145" y1="155" x2="210" y2="215"
+                  stroke="#43e28b" stroke-width="5"/>
+
+            <line x1="210" y1="215" x2="210" y2="245"
+                  stroke="#43e28b" stroke-width="5"/>
+
+            <!-- NPN arrow -->
+            <polygon points="210,215 190,207 205,195"
+                     fill="#43e28b"/>
+
+            <!-- Labels -->
+            <g fill="white" font-size="14">
+                <text x="15" y="115">Base (B)</text>
+                <text x="220" y="25">Collector (C)</text>
+                <text x="220" y="245">Emitter (E)</text>
+            </g>
+
+        </svg>
+
+    </div>
+
+    <p style="text-align:center;">
+        Remember: The NPN transistor emitter arrow points outward.
+    </p>
+
+</div>
+
+<div class="bjt-panel">
+
+    <h2>NPN Transistor Terminal Identification</h2>
+
+    <div style="overflow-x:auto;">
+
+        <table style="width:100%; border-collapse:collapse; text-align:left;">
+
+            <thead>
+                <tr>
+                    <th style="padding:12px;">Terminal</th>
+                    <th style="padding:12px;">Symbol</th>
+                    <th style="padding:12px;">Main Function</th>
+                    <th style="padding:12px;">Doping</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td style="padding:12px;">Emitter</td>
+                    <td style="padding:12px;">E</td>
+                    <td style="padding:12px;">Injects electrons</td>
+                    <td style="padding:12px;">Heavily doped</td>
+                </tr>
+
+                <tr>
+                    <td style="padding:12px;">Base</td>
+                    <td style="padding:12px;">B</td>
+                    <td style="padding:12px;">Controls transistor action</td>
+                    <td style="padding:12px;">Lightly doped</td>
+                </tr>
+
+                <tr>
+                    <td style="padding:12px;">Collector</td>
+                    <td style="padding:12px;">C</td>
+                    <td style="padding:12px;">Collects electrons</td>
+                    <td style="padding:12px;">Moderately doped</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div class="bjt-panel">
+
+    <h2>Important BJT Formulas</h2>
+
+    <div class="bjt-info-grid">
+
+        <div class="bjt-terminal">
+            <h3>Collector Current</h3>
+            <h2>IC = β × IB</h2>
+            <p>Collector current equals current gain multiplied by base current.</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3>Emitter Current</h3>
+            <h2>IE = IC + IB</h2>
+            <p>Emitter current is the sum of collector and base currents.</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3>Current Gain</h3>
+            <h2>β = IC / IB</h2>
+            <p>Common-emitter DC current gain.</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3>Collector–Emitter Voltage</h3>
+            <h2>VCE = VC - VE</h2>
+            <p>Voltage difference between collector and emitter.</p>
+        </div>
+
+    </div>
+
+    <p style="text-align:center; margin-top:20px;">
+        Note: Use consistent units when calculating transistor currents.
+    </p>
+
+</div>
+
+<div class="bjt-panel">
+
+    <h2>NPN BJT – Quick Revision Notes</h2>
+
+    <div class="bjt-terminal">
+
+        <h3>1. Definition</h3>
+        <p>A Bipolar Junction Transistor (BJT) is a three-terminal semiconductor device used for amplification and switching.</p>
+
+        <h3>2. Three Terminals</h3>
+        <p>Emitter (E), Base (B) and Collector (C).</p>
+
+        <h3>3. Structure</h3>
+        <p>An NPN transistor consists of two N-type regions separated by a thin P-type base.</p>
+
+        <h3>4. Charge Carriers</h3>
+        <p>Electrons are the majority charge carriers in an NPN transistor.</p>
+
+        <h3>5. Forward Active Mode</h3>
+        <p>Emitter–Base junction is forward biased and Collector–Base junction is reverse biased.</p>
+
+        <h3>6. Current Relationship</h3>
+        <p>IE = IC + IB</p>
+
+        <h3>7. Current Gain</h3>
+        <p>β = IC / IB</p>
+
+        <h3>8. Main Applications</h3>
+        <p>Amplifiers, electronic switches, oscillators and digital circuits.</p>
+
+    </div>
+
+</div>
+
+<div class="bjt-panel">
+
+    <h2>BJT Technical Glossary</h2>
+
+    <div class="bjt-info-grid">
+
+        <div class="bjt-terminal">
+            <h3>BJT</h3>
+            <p>Bipolar Junction Transistor – a three-terminal semiconductor device.</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3>Doping</h3>
+            <p>Adding impurities to a semiconductor to change its conductivity.</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3>Depletion Region</h3>
+            <p>Region near a PN junction depleted of mobile charge carriers.</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3>Biasing</h3>
+            <p>Applying DC voltage to establish a transistor operating condition.</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3>Current Gain (β)</h3>
+            <p>Ratio of collector current to base current in common-emitter configuration.</p>
+        </div>
+
+        <div class="bjt-terminal">
+            <h3>Saturation</h3>
+            <p>Operating condition in which both transistor junctions are forward biased.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="bjt-panel">
+
+    <h2>Learning Objectives</h2>
+
+    <p>After completing this interactive laboratory, students should be able to:</p>
+
+    <ul>
+        <li>Explain the construction and working of an NPN transistor.</li>
+        <li>Identify the emitter, base and collector terminals.</li>
+        <li>Understand cutoff, active and saturation operating modes.</li>
+        <li>Explain electron flow and conventional current.</li>
+        <li>Calculate collector current using current gain.</li>
+        <li>Understand the common-emitter circuit.</li>
+        <li>Differentiate between NPN and PNP transistors.</li>
+        <li>Identify practical applications of BJT devices.</li>
+    </ul>
+
+</div>
+
+</section>
+
+    </main>
+
+   <footer>
+    <p>
+        &copy;
+        <a href="https://smartlnks.com/JgFr" target="_blank" rel="noopener noreferrer">
+            Student NOC Union
+        </a>
+        presents ELECTRO-3D LAB.
+    </p>
+</footer>
+
+</body>
+<script type="module" src="bjt-transistor.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+
+</html>

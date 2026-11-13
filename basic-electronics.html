@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Electronics | ELECTRO-3D LAB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">⚡ ELECTRO-3D LAB</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#components">Components</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <p class="tagline">ELECTRONICS • 3D • AI • INTERACTIVE LEARNING</p>
+            <h1>Basic <span>Electronics</span></h1>
+            <p class="description">
+                Explore electronic components, understand their internal
+                structures and interact with 3D models using hand gestures.
+            </p>
+        </section>
+
+        <section id="components" class="viewer-section">
+
+            <h2>Interactive 3D Component Viewer</h2>
+            <p>Explore electronic components in three dimensions.</p>
+
+            <div class="component-selector">
+                <label for="component-select">Choose Component:</label>
+                <select id="component-select">
+                    <option value="resistor">Resistor</option>
+                    <option value="capacitor">Capacitor</option>
+                    <option value="led">LED</option>
+                    <option value="diode">Diode</option>
+                </select>
+            </div>
+
+            <button id="fullscreen-btn" class="fullscreen-btn">
+                ⛶ Fullscreen 3D Viewer
+            </button>
+
+            <div id="three-container">
+
+                <video id="webcam" autoplay playsinline muted></video>
+
+                <div class="viewer-placeholder">
+                    <h3>⚡ 3D Laboratory</h3>
+                    <p>Click Start Camera to activate the mixed reality viewer.</p>
+                </div>
+
+            </div>
+
+            <div class="tracking-status">
+                <p><strong>AI Hand Gesture Control</strong></p>
+                <p id="tracking-status">Camera not started</p>
+                <button id="start-camera">📷 Start Camera</button>
+            </div>
+
+            <div class="rotation-control">
+                <label for="rotation-speed">
+                    3D Rotation Speed:
+                    <span id="speed-value">0.005</span>
+                </label>
+
+                <input
+                    type="range"
+                    id="rotation-speed"
+                    min="0"
+                    max="0.05"
+                    step="0.001"
+                    value="0.005"
+                >
+
+                <button id="rotation-toggle" class="rotation-toggle">
+                    ⏸ Pause Rotation
+                </button>
+            </div>
+
+            <div class="viewer-controls">
+                <p>3D Viewer Status: <span>Online</span></p>
+                <button id="reset-view">↺ Reset View</button>
+            </div>
+
+            <div id="component-info" class="component-info">
+
+                <h3 id="info-name">Resistor</h3>
+
+                <div class="circuit-symbol">
+                    <h4>Circuit Symbol</h4>
+                    <div id="info-symbol">─/\/\/─</div>
+                </div>
+
+                <p>
+                    <strong>Function:</strong>
+                    <span id="info-function">Controls the flow of electric current.</span>
+                </p>
+
+                <p>
+                    <strong>Working Principle:</strong>
+                    <span id="info-working">Opposes current flow and produces a voltage drop.</span>
+                </p>
+
+                <p>
+                    <strong>Applications:</strong>
+                    <span id="info-applications">Current limiting, voltage division and circuits.</span>
+                </p>
+
+                <div class="component-specifications">
+                    <h4>Technical Specifications</h4>
+
+                    <p>
+                        <strong>Parameter 1:</strong>
+                        <span id="spec-one">Resistance: 220 Ω</span>
+                    </p>
+
+                    <p>
+                        <strong>Parameter 2:</strong>
+                        <span id="spec-two">Power Rating: 0.25 W</span>
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="about" class="about">
+            <h2>About Basic Electronics</h2>
+            <p>
+                Learn about resistors, capacitors, LEDs and diodes
+                through interactive 3D visualization and AI-based
+                hand gesture controls.
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 ELECTRO-3D LAB | Basic Electronics</p>
+    </footer>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+        }
+    }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+    <script type="module" src="script.js"></script>
+
+</body>
+</html>

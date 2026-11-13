@@ -1,0 +1,690 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MOSFET Laboratory | ELECTRO-3D LAB</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+{
+    "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+<style>
+    #mosfet-viewer {
+        position: relative;
+        overflow: hidden;
+        background: #07111f;
+    }
+
+    #mosfet-camera-background {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    #mosfet-viewer canvas {
+        position: relative;
+        z-index: 1;
+    }
+
+    .mosfet-overlay {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 2;
+        color: #42a5ff;
+        font-size: 12px;
+        letter-spacing: 2px;
+        pointer-events: none;
+    }
+</style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">⚡ ELECTRO-3D LAB</div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="semiconductor-devices.html">Semiconductor Devices</a>
+        </nav>
+    </header>
+
+    <section class="bjt-intro">
+        <h1>MOSFET Laboratory</h1>
+
+        <p>
+            Explore Metal Oxide Semiconductor Field Effect
+            Transistors through interactive 3D visualization.
+        </p>
+    </section>
+
+    <section class="bjt-lab">
+
+        <div class="bjt-panel">
+
+            <h2>Interactive 3D MOSFET Laboratory</h2>
+
+            <p>
+                Explore the structure and working principle
+                of an NMOS transistor.
+            </p>
+
+          <div id="mosfet-viewer" class="bjt-viewer">
+
+    <video id="mosfet-camera-background"
+           autoplay
+           playsinline
+           muted>
+    </video>
+
+    <div class="mosfet-overlay">
+        3D NMOS TRANSISTOR LAB
+    </div>
+
+</div>
+
+        <div class="bjt-controls">
+
+    <button id="mosfet-rotate">
+        Pause Rotation
+    </button>
+
+    <button id="mosfet-reset">
+        Reset View
+    </button>
+
+</div>
+
+<div class="bjt-controls">
+
+    <button id="mosfet-start-camera">
+        Start Camera
+    </button>
+
+    <button id="mosfet-reset-camera">
+        Reset Camera
+    </button>
+
+    <span id="mosfet-camera-status">
+        Camera is not started
+    </span>
+
+</div>
+
+        </div>
+
+    </section>
+
+<!-- ======================================
+     NMOS WORKING PRINCIPLE
+====================================== -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>NMOS Working Principle</h2>
+
+        <p>
+            An NMOS (N-channel Metal Oxide Semiconductor)
+            transistor is a voltage-controlled device.
+        </p>
+
+        <h3>How does it work?</h3>
+
+        <ul>
+            <li>
+                <strong>VGS = 0:</strong>
+                No conducting channel is formed in the normal
+                enhancement-mode NMOS.
+            </li>
+            <li>
+                <strong>VGS above threshold voltage:</strong>
+                An electron inversion channel forms beneath
+                the gate oxide.
+            </li>
+            <li>
+                <strong>VDS applied:</strong>
+                Electrons flow from Source to Drain.
+            </li>
+            <li>
+                <strong>Gate control:</strong>
+                Increasing VGS above threshold generally
+                increases channel conductivity.
+            </li>
+        </ul>
+
+        <h3>Important Terminals</h3>
+
+        <p><strong>Gate (G):</strong> Controls the channel.</p>
+        <p><strong>Drain (D):</strong> Collects electrons.</p>
+        <p><strong>Source (S):</strong> Supplies electrons.</p>
+        <p><strong>Body (B):</strong> Semiconductor substrate connection.</p>
+
+    </div>
+</section>
+
+<!-- ======================================
+     NMOS OPERATING MODES
+====================================== -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>NMOS Operating Modes</h2>
+
+        <div class="bjt-controls">
+            <button onclick="showMosfetMode('cutoff')">
+                Cut-off
+            </button>
+
+            <button onclick="showMosfetMode('linear')">
+                Linear
+            </button>
+
+            <button onclick="showMosfetMode('saturation')">
+                Saturation
+            </button>
+        </div>
+
+        <div id="mosfet-mode-info">
+
+            <h3>Choose an Operating Mode</h3>
+
+            <p>Select a mode to understand NMOS operation.</p>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- ======================================
+     NMOS CURRENT CALCULATOR
+====================================== -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>NMOS Drain Current Calculator</h2>
+
+        <p>Enter the transistor parameters:</p>
+
+        <label>Gate-Source Voltage VGS (V)</label>
+        <input type="number" id="mosfet-vgs"
+               value="3" step="0.1">
+
+        <label>Threshold Voltage VTH (V)</label>
+        <input type="number" id="mosfet-vth"
+               value="1" step="0.1">
+
+        <label>Drain-Source Voltage VDS (V)</label>
+        <input type="number" id="mosfet-vds"
+               value="3" step="0.1">
+
+        <label>Process Transconductance Parameter K (mA/V²)</label>
+        <input type="number" id="mosfet-k"
+               value="2" step="0.1">
+
+        <div class="bjt-controls">
+            <button onclick="calculateMosfetCurrent()">
+                Calculate Drain Current
+            </button>
+        </div>
+
+        <div id="mosfet-current-result">
+            <h3>Calculation Result</h3>
+            <p>Enter values and click Calculate.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ======================================
+     NMOS CIRCUIT DIAGRAM
+====================================== -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>NMOS Transistor Circuit Diagram</h2>
+
+        <p>Common-source NMOS configuration</p>
+
+        <svg viewBox="0 0 600 430"
+             width="100%"
+             xmlns="http://www.w3.org/2000/svg">
+
+            <g stroke="#38bdf8"
+               stroke-width="4"
+               fill="none"
+               stroke-linecap="round">
+
+                <!-- Drain supply -->
+                <path d="M300 40 V105"/>
+                <path d="M275 40 H325"/>
+
+                <!-- Drain -->
+                <path d="M300 105 V165"/>
+
+                <!-- Gate -->
+                <path d="M150 190 H245"/>
+                <path d="M245 155 V235"/>
+
+                <!-- Transistor channel -->
+                <path d="M300 165 V235"/>
+                <path d="M300 235 V300"/>
+
+                <!-- Source -->
+                <path d="M300 300 V350"/>
+
+                <!-- Ground -->
+                <path d="M270 350 H330"/>
+                <path d="M280 360 H320"/>
+                <path d="M290 370 H310"/>
+
+                <!-- Body connection -->
+                <path d="M300 250 H380 V300"/>
+            </g>
+
+            <g fill="#ffffff"
+               font-size="18"
+               font-family="Arial">
+
+                <text x="340" y="45">VDD</text>
+                <text x="340" y="110">Drain (D)</text>
+                <text x="70" y="180">Gate (G)</text>
+                <text x="340" y="220">NMOS</text>
+                <text x="340" y="315">Source (S)</text>
+                <text x="400" y="290">Body (B)</text>
+                <text x="340" y="375">Ground</text>
+                <text x="70" y="220">VGS Input</text>
+
+            </g>
+
+        </svg>
+
+        <p>
+            The gate voltage controls the channel,
+            allowing current to flow between drain
+            and source when the NMOS is turned ON.
+        </p>
+
+    </div>
+</section>
+
+<!-- ======================================
+     NMOS KNOWLEDGE TEST
+====================================== -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>NMOS Knowledge Test</h2>
+        <p>Test your understanding with these 5 MCQs.</p>
+
+        <form id="mosfet-quiz">
+
+            <p><strong>1. What does NMOS stand for?</strong></p>
+            <label><input type="radio" name="mq1" value="a"> Negative Metal Oxide Semiconductor</label><br>
+            <label><input type="radio" name="mq1" value="b"> N-channel Metal Oxide Semiconductor</label><br>
+            <label><input type="radio" name="mq1" value="c"> New Metal Operating System</label>
+
+            <hr>
+
+            <p><strong>2. Which terminal controls an NMOS?</strong></p>
+            <label><input type="radio" name="mq2" value="a"> Drain</label><br>
+            <label><input type="radio" name="mq2" value="b"> Source</label><br>
+            <label><input type="radio" name="mq2" value="c"> Gate</label>
+
+            <hr>
+
+            <p><strong>3. What is the main charge carrier in NMOS?</strong></p>
+            <label><input type="radio" name="mq3" value="a"> Electrons</label><br>
+            <label><input type="radio" name="mq3" value="b"> Holes</label><br>
+            <label><input type="radio" name="mq3" value="c"> Protons</label>
+
+            <hr>
+
+            <p><strong>4. What happens when VGS is below VTH in an ideal enhancement NMOS?</strong></p>
+            <label><input type="radio" name="mq4" value="a"> Cut-off</label><br>
+            <label><input type="radio" name="mq4" value="b"> Saturation</label><br>
+            <label><input type="radio" name="mq4" value="c"> Linear</label>
+
+            <hr>
+
+            <p><strong>5. Which layer electrically insulates the gate?</strong></p>
+            <label><input type="radio" name="mq5" value="a"> Silicon substrate</label><br>
+            <label><input type="radio" name="mq5" value="b"> Gate oxide</label><br>
+            <label><input type="radio" name="mq5" value="c"> Drain contact</label>
+
+            <br><br>
+
+            <button type="button" onclick="checkMosfetQuiz()">
+                Submit Answers
+            </button>
+
+            <button type="reset" onclick="resetMosfetQuiz()">
+                Reset Quiz
+            </button>
+
+        </form>
+
+        <div id="mosfet-quiz-result"></div>
+
+    </div>
+</section>
+
+<!-- NMOS QUICK REVISION NOTES -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>NMOS Quick Revision Notes</h2>
+
+        <h3>1. Definition</h3>
+        <p>
+            An N-channel MOSFET is a voltage-controlled
+            semiconductor device in which electrons are
+            the majority charge carriers.
+        </p>
+
+        <h3>2. Four Terminals</h3>
+        <ul>
+            <li>Gate (G): Controls the channel.</li>
+            <li>Drain (D): Current enters or leaves through this terminal, depending on the chosen current convention.</li>
+            <li>Source (S): Provides carriers to the channel.</li>
+            <li>Body (B): Semiconductor substrate.</li>
+        </ul>
+
+        <h3>3. Operating Regions</h3>
+        <ul>
+            <li>Cut-off: VGS ≤ VTH</li>
+            <li>Linear: VGS > VTH and VDS < VGS − VTH</li>
+            <li>Saturation: VGS > VTH and VDS ≥ VGS − VTH</li>
+        </ul>
+
+        <h3>4. Important Terms</h3>
+        <ul>
+            <li>VGS: Gate-to-source voltage.</li>
+            <li>VDS: Drain-to-source voltage.</li>
+            <li>VTH: Threshold voltage.</li>
+            <li>ID: Drain current.</li>
+        </ul>
+
+        <h3>5. Main Characteristics</h3>
+        <ul>
+            <li>High input impedance.</li>
+            <li>Voltage-controlled operation.</li>
+            <li>Low gate current in normal operation.</li>
+            <li>Widely used in digital and analog circuits.</li>
+        </ul>
+
+    </div>
+</section>
+
+<!-- IMPORTANT MOSFET FORMULAS -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Important MOSFET Formulas</h2>
+
+        <h3>1. Gate-to-Source Voltage</h3>
+        <p>VGS = VG − VS</p>
+
+        <h3>2. Drain-to-Source Voltage</h3>
+        <p>VDS = VD − VS</p>
+
+        <h3>3. Overdrive Voltage</h3>
+        <p>VOV = VGS − VTH</p>
+
+        <h3>4. Drain Current in Cut-off</h3>
+        <p>ID ≈ 0, when VGS ≤ VTH (ideal model)</p>
+
+        <h3>5. Drain Current in Linear Region</h3>
+        <p>ID = K [2(VGS − VTH)VDS − VDS²]</p>
+
+        <h3>6. Drain Current in Saturation Region</h3>
+        <p>ID = K(VGS − VTH)²</p>
+
+        <h3>7. Transconductance in Saturation</h3>
+        <p>gm = 2K(VGS − VTH)</p>
+
+        <p>
+            <strong>Note:</strong> These current equations use the
+            ideal long-channel square-law model, where K is the
+            process transconductance parameter in this convention.
+            Channel-length modulation is ignored.
+        </p>
+
+    </div>
+</section>
+
+<!-- MOSFET TECHNICAL GLOSSARY -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>MOSFET Technical Glossary</h2>
+
+        <h3>1. MOSFET</h3>
+        <p>Metal Oxide Semiconductor Field Effect Transistor. A voltage-controlled semiconductor device.</p>
+
+        <h3>2. Threshold Voltage (VTH)</h3>
+        <p>The minimum gate-to-source voltage required to form a conducting inversion channel in an enhancement NMOS.</p>
+
+        <h3>3. Inversion Channel</h3>
+        <p>A conducting region formed beneath the gate oxide when sufficient gate voltage is applied.</p>
+
+        <h3>4. Gate Oxide</h3>
+        <p>An insulating layer separating the gate electrode from the semiconductor body.</p>
+
+        <h3>5. Drain Current (ID)</h3>
+        <p>The current flowing through the MOSFET channel between drain and source.</p>
+
+        <h3>6. Transconductance (gm)</h3>
+        <p>The rate of change of drain current with respect to gate-to-source voltage at a specified operating point.</p>
+
+        <h3>7. Pinch-off</h3>
+        <p>The condition near the drain associated with the onset of saturation in a long-channel NMOS.</p>
+
+        <h3>8. Body Effect</h3>
+        <p>The change in threshold voltage due to a change in source-to-body voltage.</p>
+
+        <h3>9. Channel Length</h3>
+        <p>The effective distance between source and drain beneath the gate.</p>
+
+        <h3>10. High Input Impedance</h3>
+        <p>A characteristic of MOSFETs resulting from the insulated gate structure.</p>
+
+    </div>
+</section>
+
+<!-- MOSFET APPLICATIONS -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Applications of MOSFET</h2>
+
+        <h3>1. Electronic Switching</h3>
+        <p>
+            MOSFETs are widely used as electronic switches
+            in digital circuits and power control systems.
+        </p>
+
+        <h3>2. Amplifiers</h3>
+        <p>
+            MOSFETs amplify electrical signals in audio,
+            communication and electronic circuits.
+        </p>
+
+        <h3>3. CMOS Technology</h3>
+        <p>
+            NMOS and PMOS transistors work together in CMOS
+            circuits used in processors and digital ICs.
+        </p>
+
+        <h3>4. Power Supplies</h3>
+        <p>
+            Power MOSFETs are used in switching regulators,
+            DC-DC converters and power management circuits.
+        </p>
+
+        <h3>5. Motor Control</h3>
+        <p>
+            MOSFETs control the speed and power of DC motors
+            in electronic drive systems.
+        </p>
+
+        <h3>6. VLSI Circuits</h3>
+        <p>
+            MOSFETs are the fundamental building blocks
+            of modern integrated circuits and microprocessors.
+        </p>
+
+        <h3>7. Battery Management</h3>
+        <p>
+            MOSFETs are used for battery protection,
+            charging and electronic power switching.
+        </p>
+
+    </div>
+</section>
+
+<!-- NMOS VS PMOS COMPARISON -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>NMOS vs PMOS Comparison</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>NMOS</th>
+                    <th>PMOS</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Structure</td>
+                    <td>N-channel</td>
+                    <td>P-channel</td>
+                </tr>
+
+                <tr>
+                    <td>Majority Carriers</td>
+                    <td>Electrons</td>
+                    <td>Holes</td>
+                </tr>
+
+                <tr>
+                    <td>Substrate</td>
+                    <td>P-type</td>
+                    <td>N-type</td>
+                </tr>
+
+                <tr>
+                    <td>Channel Formation</td>
+                    <td>Positive gate voltage relative to source</td>
+                    <td>Negative gate voltage relative to source</td>
+                </tr>
+
+                <tr>
+                    <td>Carrier Mobility</td>
+                    <td>Generally higher</td>
+                    <td>Generally lower</td>
+                </tr>
+
+                <tr>
+                    <td>Switching Speed</td>
+                    <td>Generally faster</td>
+                    <td>Generally slower</td>
+                </tr>
+
+                <tr>
+                    <td>Common Application</td>
+                    <td>Low-side switching</td>
+                    <td>High-side switching</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <h3>Important Point</h3>
+        <p>
+            NMOS and PMOS transistors are combined in CMOS
+            technology to create low-power digital circuits.
+        </p>
+
+    </div>
+</section>
+
+<!-- MOSFET LEARNING OBJECTIVES -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Learning Objectives</h2>
+
+        <p>After completing this MOSFET laboratory, students will be able to:</p>
+
+        <ul>
+            <li>Understand the construction of an N-channel MOSFET.</li>
+            <li>Identify Gate, Drain, Source and Body terminals.</li>
+            <li>Explain the working principle of an enhancement NMOS.</li>
+            <li>Understand threshold voltage and channel formation.</li>
+            <li>Differentiate cut-off, linear and saturation regions.</li>
+            <li>Calculate drain current using the square-law model.</li>
+            <li>Understand the differences between NMOS and PMOS.</li>
+            <li>Identify practical applications of MOSFETs.</li>
+            <li>Explore a 3D MOSFET model using mouse and hand gestures.</li>
+        </ul>
+
+        <h3>Practical Learning</h3>
+
+        <p>
+            Use the interactive 3D laboratory to rotate the NMOS,
+            zoom in and explore its semiconductor structure.
+            Use the camera controls to interact through hand gestures.
+        </p>
+
+    </div>
+</section>
+
+
+    <footer>
+        <p>
+            &copy;
+            <a href="https://smartlnks.com/JgFr"
+               target="_blank"
+               rel="noopener noreferrer">
+                Student NOC Union
+            </a>
+            presents ELECTRO-3D LAB.
+        </p>
+    </footer>
+<script type="module" src="mosfet.js"></script>
+
+</body>
+</html>

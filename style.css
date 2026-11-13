@@ -1,0 +1,1406 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080d18;
+    color: #ffffff;
+}
+
+/* NAVIGATION */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 8%;
+    background: #0d1525;
+    border-bottom: 1px solid #1d3450;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+nav {
+    display: flex;
+    gap: 28px;
+}
+
+nav a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #38bdf8;
+}
+
+/* HERO SECTION */
+
+.hero {
+    min-height: 520px;
+    padding: 120px 20px;
+    text-align: center;
+    background:
+        radial-gradient(circle at center, #12345a 0%, #080d18 65%);
+}
+
+.tagline {
+    color: #38bdf8;
+    font-size: 13px;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: 52px;
+    line-height: 1.2;
+    margin-bottom: 22px;
+}
+
+.hero h1 span {
+    color: #38bdf8;
+}
+
+.description {
+    max-width: 650px;
+    margin: 0 auto 35px;
+    color: #aabbd0;
+    line-height: 1.8;
+}
+
+.start-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background: #0284c7;
+    color: white;
+    text-decoration: none;
+    border-radius: 7px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.start-button:hover {
+    background: #38bdf8;
+    color: #07111e;
+    transform: translateY(-3px);
+}
+
+/* LABORATORY */
+
+.laboratory {
+    padding: 85px 8%;
+    text-align: center;
+}
+
+.laboratory h2,
+.about h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.laboratory > p {
+    color: #94a3b8;
+    margin-bottom: 45px;
+}
+
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.module-card {
+    background: #111c2e;
+    border: 1px solid #243b55;
+    padding: 35px 22px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.module-card:hover {
+    border-color: #38bdf8;
+    transform: translateY(-7px);
+    box-shadow: 0 8px 30px #0284c733;
+}
+
+.module-icon {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.module-card h3 {
+    color: #38bdf8;
+    margin-bottom: 12px;
+}
+
+.module-card p {
+    color: #aabbd0;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* ABOUT */
+
+.about {
+    padding: 70px 15%;
+    text-align: center;
+    background: #0d1525;
+}
+
+.about p {
+    color: #aabbd0;
+    line-height: 1.8;
+    margin-top: 20px;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #8495aa;
+    background: #060a12;
+    font-size: 13px;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    nav {
+        gap: 16px;
+    }
+
+    .hero {
+        padding: 90px 20px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .module-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .laboratory {
+        padding: 60px 6%;
+    }
+
+    .about {
+        padding: 60px 8%;
+    }
+}
+
+/* 3D COMPONENT VIEWER */
+
+.viewer-section {
+    padding: 80px 8%;
+    text-align: center;
+    background: #080d18;
+}
+
+.viewer-section h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.viewer-section > p {
+    color: #94a3b8;
+    margin-bottom: 30px;
+}
+
+#three-container {
+    width: 100%;
+    height: 450px;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle, #142c49, #080d18);
+    border: 1px solid #245078;
+    border-radius: 15px;
+}
+
+.viewer-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+}
+
+.viewer-placeholder h3 {
+    color: #38bdf8;
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+.viewer-placeholder p {
+    color: #aabbd0;
+}
+
+.viewer-controls {
+    margin-top: 20px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.viewer-controls span {
+    color: #facc15;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    #three-container {
+        height: 320px;
+    }
+
+    .viewer-section {
+        padding: 55px 6%;
+    }
+}
+#reset-view {
+    margin-top: 15px;
+    padding: 10px 22px;
+    background: #0ea5e9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#reset-view:hover {
+    background: #0284c7;
+    transform: scale(1.05);
+}
+.component-selector {
+    margin: 25px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.component-selector label {
+    color: #38bdf8;
+    font-weight: bold;
+}
+
+#component-select {
+    padding: 11px 18px;
+    background: #142c49;
+    color: white;
+    border: 1px solid #38bdf8;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#component-select:focus {
+    outline: 2px solid #38bdf8;
+}
+/* COMPONENT INFORMATION PANEL */
+.component-info {
+    margin-top: 25px;
+    padding: 25px;
+    text-align: left;
+    background: #101d30;
+    border: 1px solid #245078;
+    border-radius: 12px;
+    color: #cbd5e1;
+}
+
+.component-info h3 {
+    color: #38bdf8;
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+
+.component-info p {
+    margin: 12px 0;
+    line-height: 1.6;
+}
+
+.component-info strong {
+    color: #38bdf8;
+}
+/* CIRCUIT SYMBOL DISPLAY */
+.circuit-symbol {
+    margin: 20px 0;
+    padding: 18px;
+    background: #080d18;
+    border: 1px solid #245078;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.circuit-symbol h4 {
+    color: #38bdf8;
+    margin-bottom: 15px;
+    font-size: 17px;
+}
+
+#info-symbol {
+    color: #ffffff;
+    font-size: 48px;
+    font-weight: bold;
+    min-height: 65px;
+}
+/* TECHNICAL SPECIFICATIONS */
+.component-specifications {
+    margin-top: 20px;
+    padding: 20px;
+    background: #0b1728;
+    border: 1px solid #245078;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.component-specifications h4 {
+    color: #38bdf8;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.component-specifications p {
+    color: #cbd5e1;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+/* 3D ROTATION SPEED CONTROL */
+.rotation-control {
+    margin: 25px 0;
+    padding: 20px;
+    background: #101d30;
+    border: 1px solid #245078;
+    border-radius: 10px;
+}
+
+.rotation-control label {
+    display: block;
+    color: #38bdf8;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+#rotation-speed {
+    width: 100%;
+    max-width: 400px;
+    accent-color: #38bdf8;
+    cursor: pointer;
+}
+/* PAUSE / RESUME ROTATION BUTTON */
+.rotation-toggle {
+    display: block;
+    margin: 18px auto 0;
+    padding: 11px 24px;
+    background: #0ea5e9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.rotation-toggle:hover {
+    background: #0284c7;
+    transform: scale(1.05);
+}
+/* FULLSCREEN VIEWER BUTTON */
+.fullscreen-btn {
+    margin-bottom: 15px;
+    padding: 11px 22px;
+    background: #0ea5e9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.fullscreen-btn:hover {
+    background: #0284c7;
+    transform: scale(1.04);
+}
+
+#three-container:fullscreen {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    background: #080d18;
+}
+
+#three-container:fullscreen canvas {
+    width: 100%;
+    height: 100%;
+}
+/* AI HAND TRACKING SECTION */
+.hand-tracking-section {
+    padding: 80px 8%;
+    text-align: center;
+    background: #0b1424;
+}
+
+.hand-tracking-section h2 {
+    color: #38bdf8;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.hand-tracking-section > p {
+    color: #94a3b8;
+    margin-bottom: 30px;
+}
+
+.hand-tracking-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+#webcam,
+#hand-canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+#hand-canvas {
+    pointer-events: none;
+}
+
+.tracking-status {
+    padding: 25px;
+    min-width: 220px;
+    background: #101d30;
+    border: 1px solid #245078;
+    border-radius: 12px;
+    color: white;
+}
+
+.tracking-status h3 {
+    color: #38bdf8;
+    margin-bottom: 15px;
+}
+
+#tracking-status {
+    color: #facc15;
+    margin-bottom: 20px;
+}
+
+#start-camera {
+    padding: 11px 22px;
+    background: #0ea5e9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#start-camera:hover {
+    background: #0284c7;
+}
+
+@media (max-width: 768px) {
+    .hand-tracking-section {
+        padding: 55px 6%;
+    }
+
+    .webcam-container {
+        max-width: 100%;
+    }
+}
+
+/* MIXED REALITY 3D VIEWER */
+
+#three-container {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* LIVE CAMERA BACKGROUND */
+#three-container #webcam {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1);
+    z-index: 0;
+    background: #080d18;
+}
+
+/* THREE.JS CANVAS IN FRONT */
+#three-container canvas:not(#hand-canvas) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* HIDE PLACEHOLDER AFTER CAMERA STARTS */
+#three-container.camera-active .viewer-placeholder {
+    display: none;
+}
+
+/* ========================================
+   ELECTRO-3D MIXED REALITY VIEWER
+======================================== */
+
+#three-container {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: #080d18;
+}
+
+/* LIVE WEBCAM BACKGROUND */
+#three-container #webcam {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1);
+    z-index: 0;
+    background: #080d18;
+}
+
+/* TRANSPARENT THREE.JS CANVAS */
+#three-container #three-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: transparent;
+}
+
+/* PLACEHOLDER */
+#three-container .viewer-placeholder {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    text-align: center;
+}
+
+/* HIDE PLACEHOLDER WHEN CAMERA STARTS */
+#three-container.camera-active .viewer-placeholder {
+    display: none;
+}
+
+/* CAMERA STATUS */
+#start-camera:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* MOBILE VIEW */
+@media (max-width: 768px) {
+    #three-container {
+        height: 320px;
+    }
+}/* AI CAMERA CONTROLS */
+.tracking-status {
+    margin: 20px auto;
+    padding: 18px;
+    max-width: 700px;
+    text-align: center;
+    background: #111c30;
+    border: 1px solid #263b5c;
+    border-radius: 12px;
+}
+
+.tracking-status p {
+    margin-bottom: 12px;
+}
+
+#tracking-status {
+    color: #38bdf8;
+}
+
+#start-camera {
+    padding: 12px 25px;
+    background: #087cff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#start-camera:hover {
+    background: #0063d1;
+}
+/* ======================================
+   MOSFET LABORATORY STYLING
+====================================== */
+
+body:has(#mosfet-viewer) .bjt-intro {
+    padding: 40px 8%;
+    text-align: center;
+    background: #0d1525;
+}
+
+body:has(#mosfet-viewer) .bjt-intro h1 {
+    font-size: 38px;
+    color: #38bdf8;
+    margin-bottom: 12px;
+}
+
+body:has(#mosfet-viewer) .bjt-lab {
+    padding: 35px 8%;
+}
+
+body:has(#mosfet-viewer) .bjt-panel {
+    background: #0d1525;
+    border: 1px solid #1d3450;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+body:has(#mosfet-viewer) #mosfet-viewer {
+    width: 100%;
+    height: 480px;
+    margin-top: 20px;
+    border: 1px solid #1d3450;
+    border-radius: 12px;
+    background: #07111f;
+}
+
+body:has(#mosfet-viewer) .bjt-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-top: 15px;
+}
+
+
+/* ZENER DIODE VIEWER DIMENSIONS */
+
+body:has(#zener-viewer) #zener-viewer {
+    width: 40%;
+    height: 300px;
+    margin: 20px auto;
+}
+
+
+/* ======================================
+   PHOTODIODE LABORATORY STYLING
+====================================== */
+
+body:has(#photodiode-viewer) {
+    background: #080e1b;
+    color: #ffffff;
+}
+
+body:has(#photodiode-viewer) .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 6%;
+    background: #101a2c;
+}
+
+body:has(#photodiode-viewer) .navbar nav {
+    display: flex;
+    gap: 25px;
+}
+
+body:has(#photodiode-viewer) .navbar a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+body:has(#photodiode-viewer) .bjt-intro {
+    padding: 40px 8%;
+    text-align: center;
+    background: #0d1525;
+}
+
+body:has(#photodiode-viewer) .bjt-intro h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+body:has(#photodiode-viewer) .bjt-lab {
+    padding: 35px 5%;
+}
+
+body:has(#photodiode-viewer) .bjt-panel {
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px;
+    background: #111d31;
+    border: 1px solid #263b59;
+    border-radius: 15px;
+    text-align: center;
+}
+
+body:has(#photodiode-viewer) #photodiode-viewer {
+    width: 85%;
+    height: 520px;
+    margin: 25px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #080e1b;
+    border: 1px solid #263b59;
+}
+
+body:has(#photodiode-viewer) #photodiode-viewer canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+body:has(#photodiode-viewer) .bjt-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 15px;
+}
+
+body:has(#photodiode-viewer) .bjt-controls button {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 7px;
+    background: #087bce;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+body:has(#photodiode-viewer) .bjt-controls button:hover {
+    background: #075da0;
+}
+
+body:has(#photodiode-viewer) footer {
+    padding: 20px;
+    text-align: center;
+    background: #050a13;
+    color: #9db6d5;
+}
+
+/* PHOTODIODE CONSTRUCTION STYLING */
+
+body:has(#photodiode-viewer) .photodiode-construction {
+    padding: 35px 5%;
+    background: #080e1b;
+    color: white;
+}
+
+body:has(#photodiode-viewer) .photodiode-content {
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px;
+    background: #111d31;
+    border: 1px solid #263b59;
+    border-radius: 15px;
+    text-align: center;
+}
+
+body:has(#photodiode-viewer) .photodiode-content h2 {
+    color: #38bdf8;
+    margin-bottom: 20px;
+}
+
+body:has(#photodiode-viewer) .photodiode-content h3 {
+    color: #60a5fa;
+    margin-bottom: 10px;
+}
+
+body:has(#photodiode-viewer) .photodiode-parts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin: 25px 0;
+}
+
+body:has(#photodiode-viewer) .photodiode-part {
+    padding: 22px;
+    background: #172942;
+    border: 1px solid #294568;
+    border-radius: 10px;
+    text-align: left;
+}
+
+body:has(#photodiode-viewer) .photodiode-part p {
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+body:has(#photodiode-viewer) .photodiode-note {
+    padding: 15px;
+    background: #172942;
+    border-left: 4px solid #38bdf8;
+    text-align: left;
+    line-height: 1.6;
+}
+
+@media (max-width: 650px) {
+    body:has(#photodiode-viewer) .photodiode-parts {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* PHOTODIODE OPERATING MODES */
+
+body:has(#photodiode-viewer) .photodiode-modes {
+    padding: 35px 5%;
+    background: #0d1525;
+    color: white;
+}
+
+body:has(#photodiode-viewer) .photodiode-modes-content {
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+body:has(#photodiode-viewer) .photodiode-modes-content h2 {
+    color: #38bdf8;
+    margin-bottom: 25px;
+}
+
+body:has(#photodiode-viewer) .photodiode-mode-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+body:has(#photodiode-viewer) .photodiode-mode-card {
+    padding: 25px;
+    background: #111d31;
+    border: 1px solid #294568;
+    border-radius: 12px;
+    text-align: left;
+}
+
+body:has(#photodiode-viewer) .photodiode-mode-card h3 {
+    color: #60a5fa;
+    margin-bottom: 15px;
+}
+
+body:has(#photodiode-viewer) .photodiode-mode-card p,
+body:has(#photodiode-viewer) .photodiode-mode-card li {
+    color: #cbd5e1;
+    line-height: 1.7;
+}
+
+body:has(#photodiode-viewer) .photodiode-mode-card ul {
+    padding-left: 22px;
+    margin: 15px 0;
+}
+
+@media (max-width: 650px) {
+    body:has(#photodiode-viewer) .photodiode-mode-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* PHOTODIODE APPLICATIONS */
+
+body:has(#photodiode-viewer) .photodiode-applications {
+    padding: 40px 5%;
+    background: #080e1b;
+    color: white;
+}
+
+body:has(#photodiode-viewer) .photodiode-app-content {
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+body:has(#photodiode-viewer) .photodiode-app-content h2 {
+    color: #38bdf8;
+    margin-bottom: 15px;
+}
+
+body:has(#photodiode-viewer) .photodiode-app-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 25px;
+}
+
+body:has(#photodiode-viewer) .photodiode-app-card {
+    padding: 22px;
+    background: #111d31;
+    border: 1px solid #294568;
+    border-radius: 12px;
+    text-align: left;
+    transition: transform 0.2s;
+}
+
+body:has(#photodiode-viewer) .photodiode-app-card:hover {
+    transform: translateY(-5px);
+}
+
+body:has(#photodiode-viewer) .photodiode-app-card h3 {
+    color: #60a5fa;
+    margin-bottom: 12px;
+}
+
+body:has(#photodiode-viewer) .photodiode-app-card p {
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+@media (max-width: 800px) {
+    body:has(#photodiode-viewer) .photodiode-app-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 550px) {
+    body:has(#photodiode-viewer) .photodiode-app-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* PHOTODIODE COMPARISON TABLE */
+
+body:has(#photodiode-viewer) .photodiode-comparison {
+    padding: 40px 5%;
+    background: #0d1525;
+    color: white;
+}
+
+body:has(#photodiode-viewer) .photodiode-comparison-content {
+    max-width: 1150px;
+    margin: auto;
+    text-align: center;
+}
+
+body:has(#photodiode-viewer) .photodiode-comparison-content h2 {
+    color: #38bdf8;
+    margin-bottom: 25px;
+}
+
+body:has(#photodiode-viewer) .photodiode-table-wrapper {
+    overflow-x: auto;
+}
+
+body:has(#photodiode-viewer) .photodiode-table {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: collapse;
+    background: #111d31;
+}
+
+body:has(#photodiode-viewer) .photodiode-table th,
+body:has(#photodiode-viewer) .photodiode-table td {
+    padding: 15px;
+    border: 1px solid #294568;
+    text-align: center;
+}
+
+body:has(#photodiode-viewer) .photodiode-table th {
+    background: #087bce;
+    color: white;
+}
+
+body:has(#photodiode-viewer) .photodiode-table td {
+    color: #cbd5e1;
+}
+
+body:has(#photodiode-viewer) .photodiode-comparison-note {
+    margin-top: 22px;
+    padding: 15px;
+    background: #172942;
+    border-left: 4px solid #38bdf8;
+    text-align: left;
+    line-height: 1.6;
+}
+
+/* PHOTODIODE FORMULAS */
+
+body:has(#photodiode-viewer) .photodiode-formulas {
+    padding: 40px 5%;
+    background: #080e1b;
+    color: white;
+}
+
+body:has(#photodiode-viewer) .photodiode-formula-content {
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+body:has(#photodiode-viewer) .photodiode-formula-content h2 {
+    color: #38bdf8;
+    margin-bottom: 25px;
+}
+
+body:has(#photodiode-viewer) .photodiode-formula-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+body:has(#photodiode-viewer) .photodiode-formula-card {
+    padding: 22px;
+    background: #111d31;
+    border: 1px solid #294568;
+    border-radius: 12px;
+    text-align: left;
+}
+
+body:has(#photodiode-viewer) .photodiode-formula-card h3 {
+    color: #60a5fa;
+}
+
+body:has(#photodiode-viewer) .photodiode-formula-card p {
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+body:has(#photodiode-viewer) .photodiode-formula-card .formula {
+    color: #38bdf8;
+    font-size: 21px;
+    font-weight: bold;
+    padding: 12px 0;
+}
+
+body:has(#photodiode-viewer) .photodiode-symbol-info {
+    margin-top: 22px;
+    padding: 20px;
+    background: #172942;
+    border-radius: 10px;
+    text-align: left;
+}
+
+body:has(#photodiode-viewer) .photodiode-symbol-info h3 {
+    color: #60a5fa;
+}
+
+body:has(#photodiode-viewer) .photodiode-symbol-info li {
+    color: #cbd5e1;
+    line-height: 1.8;
+}
+
+@media (max-width: 650px) {
+    body:has(#photodiode-viewer) .photodiode-formula-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* PHOTODIODE QUICK REVISION */
+
+body:has(#photodiode-viewer) .photodiode-revision {
+    padding: 40px 5%;
+    background: #0d1525;
+    color: white;
+}
+
+body:has(#photodiode-viewer) .photodiode-revision-content {
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+body:has(#photodiode-viewer) .photodiode-revision-content h2 {
+    color: #38bdf8;
+    margin-bottom: 25px;
+}
+
+body:has(#photodiode-viewer) .photodiode-revision-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    text-align: left;
+}
+
+body:has(#photodiode-viewer) .revision-item {
+    padding: 18px;
+    background: #111d31;
+    border-left: 4px solid #087bce;
+    border-radius: 8px;
+}
+
+body:has(#photodiode-viewer) .revision-item h3 {
+    color: #60a5fa;
+    margin-bottom: 8px;
+}
+
+body:has(#photodiode-viewer) .revision-item p {
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+@media (max-width: 650px) {
+    body:has(#photodiode-viewer) .photodiode-revision-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* PHOTODIODE TECHNICAL GLOSSARY */
+
+body:has(#photodiode-viewer) .photodiode-glossary {
+    padding: 40px 5%;
+    background: #080e1b;
+    color: white;
+}
+
+body:has(#photodiode-viewer) .photodiode-glossary-content {
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+body:has(#photodiode-viewer) .photodiode-glossary-content h2 {
+    color: #38bdf8;
+    margin-bottom: 25px;
+}
+
+body:has(#photodiode-viewer) .photodiode-glossary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    text-align: left;
+}
+
+body:has(#photodiode-viewer) .glossary-item {
+    padding: 18px;
+    background: #111d31;
+    border: 1px solid #294568;
+    border-radius: 9px;
+}
+
+body:has(#photodiode-viewer) .glossary-item h3 {
+    color: #60a5fa;
+    margin-bottom: 8px;
+}
+
+body:has(#photodiode-viewer) .glossary-item p {
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+@media (max-width: 650px) {
+    body:has(#photodiode-viewer) .photodiode-glossary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* PHOTODIODE KNOWLEDGE TEST */
+
+body:has(#photodiode-viewer) .photodiode-quiz {
+    padding: 40px 5%;
+    background: #0d1525;
+    color: white;
+}
+
+body:has(#photodiode-viewer) .photodiode-quiz-content {
+    max-width: 900px;
+    margin: auto;
+}
+
+body:has(#photodiode-viewer) .photodiode-quiz-content h2 {
+    color: #38bdf8;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+body:has(#photodiode-viewer) .photodiode-quiz-content > p {
+    text-align: center;
+    color: #cbd5e1;
+    margin-bottom: 25px;
+}
+
+body:has(#photodiode-viewer) .photodiode-question {
+    padding: 20px;
+    margin-bottom: 18px;
+    background: #111d31;
+    border: 1px solid #294568;
+    border-radius: 10px;
+}
+
+body:has(#photodiode-viewer) .photodiode-question h3 {
+    color: #60a5fa;
+    margin-bottom: 14px;
+}
+
+body:has(#photodiode-viewer) .photodiode-question label {
+    display: block;
+    color: #cbd5e1;
+    margin: 12px 0;
+    cursor: pointer;
+}
+
+body:has(#photodiode-viewer) .photodiode-question input {
+    margin-right: 8px;
+}
+
+body:has(#photodiode-viewer) .photodiode-quiz-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+body:has(#photodiode-viewer) .photodiode-quiz-buttons button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 7px;
+    background: #087bce;
+    color: white;
+    cursor: pointer;
+}
+
+body:has(#photodiode-viewer) #photodiode-quiz-result {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ======================================
+   PHOTOTRANSISTOR LABORATORY STYLING
+====================================== */
+
+body:has(#phototransistor-viewer) {
+    background: #080e1b;
+    color: #ffffff;
+}
+
+body:has(#phototransistor-viewer) .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 6%;
+    background: #101a2c;
+}
+
+body:has(#phototransistor-viewer) .navbar nav {
+    display: flex;
+    gap: 25px;
+}
+
+body:has(#phototransistor-viewer) .navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+body:has(#phototransistor-viewer) .bjt-intro {
+    padding: 40px 8%;
+    text-align: center;
+    background: #0d1525;
+}
+
+body:has(#phototransistor-viewer) .bjt-intro h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+body:has(#phototransistor-viewer) .bjt-lab {
+    padding: 35px 5%;
+}
+
+body:has(#phototransistor-viewer) .bjt-panel {
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px;
+    background: #111d31;
+    border: 1px solid #263b59;
+    border-radius: 15px;
+    text-align: center;
+}
+
+body:has(#phototransistor-viewer) #phototransistor-viewer {
+    width: 85%;
+    height: 520px;
+    margin: 25px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #080e1b;
+    border: 1px solid #263b59;
+}
+
+body:has(#phototransistor-viewer) #phototransistor-viewer canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+body:has(#phototransistor-viewer) .bjt-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 15px;
+}
+
+body:has(#phototransistor-viewer) .bjt-controls button {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 7px;
+    background: #087bce;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+body:has(#phototransistor-viewer) .bjt-controls button:hover {
+    background: #075da0;
+}
+
+body:has(#phototransistor-viewer) footer {
+    padding: 20px;
+    text-align: center;
+    background: #050a13;
+    color: #9db6d5;
+}
+
+@media (max-width: 650px) {
+    body:has(#phototransistor-viewer) #phototransistor-viewer {
+        width: 100%;
+        height: 400px;
+    }
+
+    body:has(#phototransistor-viewer) .navbar {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}

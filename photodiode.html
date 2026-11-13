@@ -1,0 +1,675 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Photodiode Laboratory | ELECTRO-3D LAB</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="logo">ELECTRO-3D LAB</div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="semiconductor-devices.html">Semiconductor Devices</a>
+        </nav>
+
+    </header>
+
+
+    <section class="bjt-intro">
+
+        <h1>Photodiode Laboratory</h1>
+
+        <p>
+            Explore the construction, working principle and
+            applications of photodiodes through interactive
+            3D visualization and AI hand gestures.
+        </p>
+
+    </section>
+
+
+    <section class="bjt-lab">
+
+        <div class="bjt-panel">
+
+            <h2>3D Photodiode Laboratory</h2>
+
+            <p>
+                Rotate and explore the photodiode model using
+                your mouse or hand gestures.
+            </p>
+
+            <div id="photodiode-viewer" class="bjt-viewer">
+
+                <video
+                    id="photodiode-camera-background"
+                    autoplay
+                    playsinline>
+                </video>
+
+                <div class="mosfet-overlay">
+                    PHOTODIODE 3D VIEW
+                </div>
+
+            </div>
+
+
+            <div class="bjt-controls">
+
+                <button id="photodiode-rotate">
+                    Pause Rotation
+                </button>
+
+                <button id="photodiode-reset">
+                    Reset View
+                </button>
+
+            </div>
+
+
+            <div class="bjt-controls">
+
+                <button id="photodiode-start-camera">
+                    Start Camera
+                </button>
+
+                <button id="photodiode-reset-camera">
+                    Reset Camera
+                </button>
+
+            </div>
+
+
+            <p id="photodiode-camera-status">
+                Camera is not started
+            </p>
+
+        </div>
+
+    </section>
+
+
+<!-- PHOTODIODE WORKING PRINCIPLE -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Photodiode Working Principle</h2>
+
+        <p>
+            A photodiode is a semiconductor device that converts
+            light energy into electrical current. It works mainly
+            in reverse bias.
+        </p>
+
+        <h3>1. Light Absorption</h3>
+        <p>
+            When light photons strike the semiconductor junction,
+            they transfer energy to electrons and create
+            electron-hole pairs.
+        </p>
+
+        <h3>2. Charge Carrier Movement</h3>
+        <p>
+            The electric field in the depletion region separates
+            the generated electrons and holes, producing a
+            photocurrent.
+        </p>
+
+        <h3>3. Photocurrent Generation</h3>
+        <p>
+            The reverse current increases with the intensity
+            of incident light. Greater light intensity generally
+            produces greater photocurrent.
+        </p>
+
+        <h3>4. Dark Current</h3>
+        <p>
+            Even without incident light, a small reverse current
+            may flow. This is called dark current.
+        </p>
+
+        <p>
+            <strong>Important:</strong> A photodiode is commonly
+            operated in reverse bias for light detection.
+        </p>
+
+    </div>
+</section>
+
+<!-- PHOTODIODE CONSTRUCTION -->
+
+<section class="photodiode-construction">
+    <div class="photodiode-content">
+
+        <h2>Photodiode Construction and Terminals</h2>
+
+        <p>
+            A photodiode is made using a semiconductor PN junction.
+            It has a light-sensitive region and two electrical terminals.
+        </p>
+
+        <div class="photodiode-parts">
+
+            <div class="photodiode-part">
+                <h3>1. P-Type Semiconductor</h3>
+                <p>
+                    The P-type region contains holes as majority
+                    charge carriers.
+                </p>
+            </div>
+
+            <div class="photodiode-part">
+                <h3>2. N-Type Semiconductor</h3>
+                <p>
+                    The N-type region contains electrons as majority
+                    charge carriers.
+                </p>
+            </div>
+
+            <div class="photodiode-part">
+                <h3>3. Depletion Region</h3>
+                <p>
+                    The region near the PN junction where free
+                    charge carriers are depleted.
+                </p>
+            </div>
+
+            <div class="photodiode-part">
+                <h3>4. Light-Receiving Window</h3>
+                <p>
+                    Allows incident light to reach the photosensitive
+                    semiconductor region.
+                </p>
+            </div>
+
+        </div>
+
+        <h3>Photodiode Terminals</h3>
+
+        <div class="photodiode-parts">
+
+            <div class="photodiode-part">
+                <h3>Anode (+)</h3>
+                <p>
+                    Connected to the P-type region.
+                    It is the positive terminal in the usual
+                    reverse-bias connection.
+                </p>
+            </div>
+
+            <div class="photodiode-part">
+                <h3>Cathode (-)</h3>
+                <p>
+                    Connected to the N-type region.
+                    It is connected to the positive supply
+                    in reverse-bias operation.
+                </p>
+            </div>
+
+        </div>
+
+        <p class="photodiode-note">
+            Important: In reverse bias, the cathode is connected
+            to positive voltage and the anode to negative voltage.
+        </p>
+
+    </div>
+</section>
+
+<!-- PHOTODIODE OPERATING MODES -->
+
+<section class="photodiode-modes">
+    <div class="photodiode-modes-content">
+
+        <h2>Photodiode Operating Modes</h2>
+
+        <div class="photodiode-mode-grid">
+
+            <div class="photodiode-mode-card">
+                <h3>1. Photoconductive Mode</h3>
+
+                <p>
+                    In this mode, the photodiode operates
+                    under reverse bias.
+                </p>
+
+                <ul>
+                    <li>Cathode is connected to positive supply.</li>
+                    <li>Anode is connected to negative supply.</li>
+                    <li>Depletion region becomes wider.</li>
+                    <li>Photocurrent increases with light intensity.</li>
+                    <li>Provides fast response.</li>
+                </ul>
+
+                <p><strong>Common use:</strong> Optical communication
+                and light detection circuits.</p>
+            </div>
+
+            <div class="photodiode-mode-card">
+                <h3>2. Photovoltaic Mode</h3>
+
+                <p>
+                    In this mode, no external bias voltage
+                    is applied to the photodiode.
+                </p>
+
+                <ul>
+                    <li>Operates at zero external bias.</li>
+                    <li>Light generates electron-hole pairs.</li>
+                    <li>Produces a voltage across the device.</li>
+                    <li>Can operate with low noise.</li>
+                    <li>Used for light-to-electrical energy conversion.</li>
+                </ul>
+
+                <p><strong>Common use:</strong> Light measurement
+                and solar energy applications.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- PHOTODIODE APPLICATIONS -->
+
+<section class="photodiode-applications">
+    <div class="photodiode-app-content">
+
+        <h2>Applications of Photodiode</h2>
+
+        <p>
+            Photodiodes are widely used in electronic systems
+            to detect and measure light.
+        </p>
+
+        <div class="photodiode-app-grid">
+
+            <div class="photodiode-app-card">
+                <h3>1. Optical Communication</h3>
+                <p>
+                    Converts incoming optical signals into
+                    electrical signals in fibre-optic systems.
+                </p>
+            </div>
+
+            <div class="photodiode-app-card">
+                <h3>2. Light Sensors</h3>
+                <p>
+                    Detects light intensity in automatic
+                    lighting and brightness-control systems.
+                </p>
+            </div>
+
+            <div class="photodiode-app-card">
+                <h3>3. Smoke Detectors</h3>
+                <p>
+                    Detects changes in light caused by smoke
+                    particles inside a detector.
+                </p>
+            </div>
+
+            <div class="photodiode-app-card">
+                <h3>4. Remote Control Receivers</h3>
+                <p>
+                    Detects infrared light signals from
+                    remote-control devices.
+                </p>
+            </div>
+
+            <div class="photodiode-app-card">
+                <h3>5. Medical Instruments</h3>
+                <p>
+                    Used in optical measurement equipment
+                    such as pulse oximeters.
+                </p>
+            </div>
+
+            <div class="photodiode-app-card">
+                <h3>6. Barcode Scanners</h3>
+                <p>
+                    Detects reflected light patterns
+                    while scanning barcodes.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- PHOTODIODE COMPARISON -->
+
+<section class="photodiode-comparison">
+    <div class="photodiode-comparison-content">
+
+        <h2>Photodiode vs Solar Cell vs PN Junction Diode</h2>
+
+        <div class="photodiode-table-wrapper">
+            <table class="photodiode-table">
+
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Photodiode</th>
+                        <th>Solar Cell</th>
+                        <th>PN Junction Diode</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Main Function</td>
+                        <td>Light detection</td>
+                        <td>Electrical energy generation</td>
+                        <td>Rectification</td>
+                    </tr>
+
+                    <tr>
+                        <td>Operating Principle</td>
+                        <td>Photoconductive / Photovoltaic</td>
+                        <td>Photovoltaic effect</td>
+                        <td>PN junction conduction</td>
+                    </tr>
+
+                    <tr>
+                        <td>External Bias</td>
+                        <td>Usually reverse bias</td>
+                        <td>Usually no external bias</td>
+                        <td>Forward or reverse bias</td>
+                    </tr>
+
+                    <tr>
+                        <td>Light Sensitivity</td>
+                        <td>High</td>
+                        <td>High</td>
+                        <td>Not designed for light detection</td>
+                    </tr>
+
+                    <tr>
+                        <td>Common Application</td>
+                        <td>Optical sensors</td>
+                        <td>Solar panels</td>
+                        <td>Power supplies</td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+        <p class="photodiode-comparison-note">
+            Remember: A solar cell is essentially a large-area
+            photovoltaic semiconductor device designed to generate
+            useful electrical power from sunlight.
+        </p>
+
+    </div>
+</section>
+
+<!-- PHOTODIODE FORMULAS -->
+
+<section class="photodiode-formulas">
+    <div class="photodiode-formula-content">
+
+        <h2>Important Photodiode Formulas</h2>
+
+        <div class="photodiode-formula-grid">
+
+            <div class="photodiode-formula-card">
+                <h3>1. Total Photodiode Current</h3>
+                <p class="formula">I = I<sub>dark</sub> + I<sub>photo</sub></p>
+                <p>Depending on current direction and sign convention, the photocurrent contribution may be written with a minus sign.</p>
+            </div>
+
+            <div class="photodiode-formula-card">
+                <h3>2. Responsivity</h3>
+                <p class="formula">R = I<sub>photo</sub> / P<sub>opt</sub></p>
+                <p>R = Responsivity (A/W)</p>
+            </div>
+
+            <div class="photodiode-formula-card">
+                <h3>3. Electrical Power</h3>
+                <p class="formula">P = V × I</p>
+                <p>Electrical power = Voltage × Current</p>
+            </div>
+
+            <div class="photodiode-formula-card">
+                <h3>4. Photocurrent Relationship</h3>
+                <p class="formula">I<sub>photo</sub> ∝ P<sub>opt</sub></p>
+                <p>Photocurrent is approximately proportional to incident optical power under fixed operating conditions.</p>
+            </div>
+
+        </div>
+
+        <div class="photodiode-symbol-info">
+            <h3>Symbols and Units</h3>
+            <ul>
+                <li>I = Total current (A)</li>
+                <li>I<sub>dark</sub> = Dark current (A)</li>
+                <li>I<sub>photo</sub> = Photocurrent (A)</li>
+                <li>R = Responsivity (A/W)</li>
+                <li>P<sub>opt</sub> = Incident optical power (W)</li>
+                <li>V = Voltage (V)</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<!-- PHOTODIODE QUICK REVISION -->
+
+<section class="photodiode-revision">
+    <div class="photodiode-revision-content">
+
+        <h2>Photodiode Quick Revision Notes</h2>
+
+        <div class="photodiode-revision-list">
+
+            <div class="revision-item">
+                <h3>1. Definition</h3>
+                <p>A photodiode is a light-sensitive semiconductor device that converts light into electrical current.</p>
+            </div>
+
+            <div class="revision-item">
+                <h3>2. Construction</h3>
+                <p>It consists of a PN junction with a light-receiving window.</p>
+            </div>
+
+            <div class="revision-item">
+                <h3>3. Common Operating Mode</h3>
+                <p>Photoconductive mode uses reverse bias.</p>
+            </div>
+
+            <div class="revision-item">
+                <h3>4. Charge Carriers</h3>
+                <p>Incident photons generate electron-hole pairs in the semiconductor.</p>
+            </div>
+
+            <div class="revision-item">
+                <h3>5. Photocurrent</h3>
+                <p>Photocurrent generally increases as incident light intensity increases.</p>
+            </div>
+
+            <div class="revision-item">
+                <h3>6. Dark Current</h3>
+                <p>A small current can flow even when no light falls on the photodiode.</p>
+            </div>
+
+            <div class="revision-item">
+                <h3>7. Photovoltaic Mode</h3>
+                <p>In this mode, the photodiode operates without external bias.</p>
+            </div>
+
+            <div class="revision-item">
+                <h3>8. Responsivity</h3>
+                <p>It is the ratio of photocurrent to incident optical power, measured in A/W.</p>
+            </div>
+
+            <div class="revision-item">
+                <h3>9. Terminals</h3>
+                <p>A photodiode has two terminals: anode and cathode.</p>
+            </div>
+
+            <div class="revision-item">
+                <h3>10. Applications</h3>
+                <p>Optical communication, light sensors, smoke detectors and infrared receivers.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- PHOTODIODE TECHNICAL GLOSSARY -->
+
+<section class="photodiode-glossary">
+    <div class="photodiode-glossary-content">
+
+        <h2>Photodiode Technical Glossary</h2>
+
+        <div class="photodiode-glossary-grid">
+
+            <div class="glossary-item">
+                <h3>1. Photodiode</h3>
+                <p>A semiconductor device that detects light and produces electrical current.</p>
+            </div>
+
+            <div class="glossary-item">
+                <h3>2. Photocurrent</h3>
+                <p>Electrical current generated due to incident light.</p>
+            </div>
+
+            <div class="glossary-item">
+                <h3>3. Dark Current</h3>
+                <p>Small current flowing through a photodiode in the absence of incident light.</p>
+            </div>
+
+            <div class="glossary-item">
+                <h3>4. Responsivity</h3>
+                <p>Ratio of photocurrent to incident optical power, expressed in A/W.</p>
+            </div>
+
+            <div class="glossary-item">
+                <h3>5. Depletion Region</h3>
+                <p>Region around a PN junction depleted of mobile charge carriers.</p>
+            </div>
+
+            <div class="glossary-item">
+                <h3>6. Reverse Bias</h3>
+                <p>Biasing condition in which the cathode is at a higher potential than the anode.</p>
+            </div>
+
+            <div class="glossary-item">
+                <h3>7. Electron-Hole Pair</h3>
+                <p>A free electron and a corresponding hole generated when a photon transfers sufficient energy.</p>
+            </div>
+
+            <div class="glossary-item">
+                <h3>8. Photovoltaic Effect</h3>
+                <p>Generation of voltage in a semiconductor due to incident light.</p>
+            </div>
+
+            <div class="glossary-item">
+                <h3>9. Optical Power</h3>
+                <p>Light energy transferred per unit time, measured in watts.</p>
+            </div>
+
+            <div class="glossary-item">
+                <h3>10. Quantum Efficiency</h3>
+                <p>Ratio of collected charge carriers to incident photons, under a specified measurement condition.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- PHOTODIODE KNOWLEDGE TEST -->
+
+<section class="photodiode-quiz">
+    <div class="photodiode-quiz-content">
+
+        <h2>Photodiode Knowledge Test</h2>
+        <p>Test your understanding with these five questions.</p>
+
+        <form id="photodiode-quiz-form">
+
+            <div class="photodiode-question">
+                <h3>1. What is the main function of a photodiode?</h3>
+                <label><input type="radio" name="pq1" value="a"> Amplification</label>
+                <label><input type="radio" name="pq1" value="b"> Light detection</label>
+                <label><input type="radio" name="pq1" value="c"> Rectification only</label>
+            </div>
+
+            <div class="photodiode-question">
+                <h3>2. Which bias is commonly used in photoconductive mode?</h3>
+                <label><input type="radio" name="pq2" value="a"> Forward bias</label>
+                <label><input type="radio" name="pq2" value="b"> Zero bias</label>
+                <label><input type="radio" name="pq2" value="c"> Reverse bias</label>
+            </div>
+
+            <div class="photodiode-question">
+                <h3>3. What happens when light intensity increases?</h3>
+                <label><input type="radio" name="pq3" value="a"> Photocurrent generally increases</label>
+                <label><input type="radio" name="pq3" value="b"> Photocurrent becomes zero</label>
+                <label><input type="radio" name="pq3" value="c"> Junction disappears</label>
+            </div>
+
+            <div class="photodiode-question">
+                <h3>4. What is dark current?</h3>
+                <label><input type="radio" name="pq4" value="a"> Current due to bright light</label>
+                <label><input type="radio" name="pq4" value="b"> Current in the absence of incident light</label>
+                <label><input type="radio" name="pq4" value="c"> Forward current only</label>
+            </div>
+
+            <div class="photodiode-question">
+                <h3>5. What is the unit of responsivity?</h3>
+                <label><input type="radio" name="pq5" value="a"> Volt</label>
+                <label><input type="radio" name="pq5" value="b"> Ohm</label>
+                <label><input type="radio" name="pq5" value="c"> Ampere per watt</label>
+            </div>
+
+            <div class="photodiode-quiz-buttons">
+                <button type="submit">Submit Test</button>
+                <button type="reset">Reset Test</button>
+            </div>
+
+            <div id="photodiode-quiz-result" aria-live="polite"></div>
+
+        </form>
+
+    </div>
+</section>
+
+    <footer>
+        <p>© ELECTRO-3D LAB | Photodiode Laboratory</p>
+    </footer>
+
+
+    <script type="module" src="photodiode.js"></script>
+
+</body>
+</html>

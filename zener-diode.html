@@ -1,0 +1,797 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Zener Diode Laboratory | ELECTRO-3D LAB</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">ELECTRO-3D LAB</div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="semiconductor-devices.html">Semiconductor Devices</a>
+        </nav>
+    </header>
+
+    <section class="bjt-intro">
+
+        <h1>Zener Diode Laboratory</h1>
+
+        <p>
+            Explore the construction, working principle
+            and applications of a Zener diode through
+            interactive 3D visualization.
+        </p>
+
+    </section>
+
+    <section class="bjt-lab">
+
+        <div class="bjt-panel">
+
+            <h2>3D Zener Diode Laboratory</h2>
+
+            <p>
+                Rotate and explore the Zener diode model
+                in the interactive laboratory.
+            </p>
+
+            <div id="zener-viewer" class="bjt-viewer">
+
+                <video
+                    id="zener-camera-background"
+                    autoplay
+                    playsinline>
+                </video>
+
+                <div class="mosfet-overlay">
+                    ZENER DIODE 3D VIEW
+                </div>
+
+            </div>
+
+            <div class="bjt-controls">
+
+                <button id="zener-rotate">
+                    Pause Rotation
+                </button>
+
+                <button id="zener-reset">
+                    Reset View
+                </button>
+
+            </div>
+
+            <div class="bjt-controls">
+
+                <button id="zener-start-camera">
+                    Start Camera
+                </button>
+
+                <button id="zener-reset-camera">
+                    Reset Camera
+                </button>
+
+                <span id="zener-camera-status">
+                    Camera is not started
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<!-- ZENER DIODE WORKING PRINCIPLE -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Zener Diode Working Principle</h2>
+
+        <h3>1. Definition</h3>
+        <p>
+            A Zener diode is a specially designed PN junction
+            diode that operates in the reverse breakdown region
+            to maintain an approximately constant voltage.
+        </p>
+
+        <h3>2. Forward Bias</h3>
+        <p>
+            In forward bias, the Zener diode behaves similarly
+            to an ordinary silicon diode and conducts current
+            after its forward voltage is reached.
+        </p>
+
+        <h3>3. Reverse Bias</h3>
+        <p>
+            In reverse bias, only a small leakage current flows
+            until the reverse voltage reaches the Zener
+            breakdown voltage.
+        </p>
+
+        <h3>4. Zener Breakdown</h3>
+        <p>
+            When the reverse voltage reaches the breakdown
+            voltage, the diode conducts significant reverse
+            current while maintaining an approximately
+            constant voltage across it.
+        </p>
+
+        <h3>5. Voltage Regulation</h3>
+        <p>
+            A Zener diode can maintain a stable output voltage
+            when connected in reverse bias with a suitable
+            series current-limiting resistor.
+        </p>
+
+        <h3>Important Note</h3>
+        <p>
+            A series resistor is essential in a practical
+            Zener regulator to limit current and protect
+            the diode from damage.
+        </p>
+
+    </div>
+</section>
+
+<!-- ZENER DIODE TERMINALS AND CHARACTERISTICS -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Zener Diode Terminals and Characteristics</h2>
+
+        <h3>1. Anode</h3>
+        <p>
+            The P-type region of the Zener diode.
+            It is the positive terminal in forward bias.
+        </p>
+
+        <h3>2. Cathode</h3>
+        <p>
+            The N-type region of the Zener diode.
+            It is the negative terminal in forward bias.
+        </p>
+
+        <h3>3. Zener Voltage (VZ)</h3>
+        <p>
+            The specified reverse breakdown voltage at
+            which the Zener diode begins operating in
+            its breakdown region.
+        </p>
+
+        <h3>4. Dynamic Resistance (rZ)</h3>
+        <p>
+            The small change in Zener voltage divided by
+            the corresponding change in Zener current
+            around an operating point.
+        </p>
+
+        <h3>5. Breakdown Region</h3>
+        <p>
+            The reverse-bias operating region where the
+            voltage remains approximately constant while
+            current changes within the permitted range.
+        </p>
+
+        <h3>6. Power Rating</h3>
+        <p>
+            The maximum power the Zener diode can safely
+            dissipate under specified conditions.
+        </p>
+
+    </div>
+</section>
+
+<!-- ZENER DIODE VOLTAGE REGULATOR CIRCUIT -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Zener Diode Voltage Regulator Circuit</h2>
+
+        <p>
+            A Zener diode is connected in reverse bias
+            across the load to maintain a nearly constant
+            output voltage.
+        </p>
+
+        <div style="overflow-x:auto; text-align:center;">
+
+            <svg viewBox="0 0 650 430"
+                 width="100%"
+                 style="max-width:650px;">
+
+                <!-- Supply -->
+                <text x="35" y="65" fill="#38bdf8"
+                      font-size="17">Vin</text>
+
+                <line x1="80" y1="75" x2="80" y2="150"
+                      stroke="#ffffff" stroke-width="3"/>
+
+                <!-- Resistor -->
+                <polyline points="80,150 65,160 95,175 65,190 95,205 80,220"
+                          fill="none" stroke="#facc15"
+                          stroke-width="3"/>
+
+                <text x="25" y="190" fill="#facc15"
+                      font-size="16">Rs</text>
+
+                <line x1="80" y1="220" x2="80" y2="270"
+                      stroke="#ffffff" stroke-width="3"/>
+
+                <!-- Output line -->
+                <line x1="80" y1="270" x2="530" y2="270"
+                      stroke="#ffffff" stroke-width="3"/>
+
+                <text x="95" y="250" fill="#38bdf8"
+                      font-size="17">Vout</text>
+
+                <!-- Zener branch -->
+                <line x1="250" y1="270" x2="250" y2="310"
+                      stroke="#ffffff" stroke-width="3"/>
+
+                <polygon points="235,310 265,310 250,335"
+                         fill="none" stroke="#38bdf8"
+                         stroke-width="3"/>
+
+                <line x1="232" y1="335" x2="268" y2="335"
+                      stroke="#38bdf8" stroke-width="3"/>
+
+                <line x1="240" y1="328" x2="232" y2="335"
+                      stroke="#38bdf8" stroke-width="3"/>
+
+                <line x1="250" y1="335" x2="250" y2="375"
+                      stroke="#ffffff" stroke-width="3"/>
+
+                <text x="270" y="330" fill="#38bdf8"
+                      font-size="16">Zener</text>
+
+                <!-- Load resistor -->
+                <line x1="470" y1="270" x2="470" y2="290"
+                      stroke="#ffffff" stroke-width="3"/>
+
+                <polyline points="470,290 455,300 485,315 455,330 485,345 470,355"
+                          fill="none" stroke="#facc15"
+                          stroke-width="3"/>
+
+                <line x1="470" y1="355" x2="470" y2="375"
+                      stroke="#ffffff" stroke-width="3"/>
+
+                <text x="495" y="330" fill="#facc15"
+                      font-size="16">RL</text>
+
+                <!-- Ground -->
+                <line x1="250" y1="375" x2="470" y2="375"
+                      stroke="#ffffff" stroke-width="3"/>
+
+                <line x1="360" y1="375" x2="360" y2="390"
+                      stroke="#ffffff" stroke-width="3"/>
+
+                <line x1="335" y1="390" x2="385" y2="390"
+                      stroke="#ffffff" stroke-width="3"/>
+
+                <line x1="343" y1="400" x2="377" y2="400"
+                      stroke="#ffffff" stroke-width="3"/>
+
+                <line x1="350" y1="410" x2="370" y2="410"
+                      stroke="#ffffff" stroke-width="3"/>
+
+            </svg>
+
+        </div>
+
+        <h3>Working</h3>
+
+        <ul>
+            <li>Vin provides the input DC voltage.</li>
+            <li>Rs limits the current flowing through the circuit.</li>
+            <li>The Zener diode is connected in reverse bias.</li>
+            <li>RL represents the load resistance.</li>
+            <li>Vout remains approximately equal to VZ when the Zener operates within its regulation range.</li>
+        </ul>
+
+    </div>
+</section>
+
+<!-- ZENER DIODE CALCULATOR -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Zener Voltage Regulator Calculator</h2>
+
+        <p>Enter the circuit values to calculate the Zener current.</p>
+
+        <label>Input Voltage (Vin) — Volts</label>
+        <input type="number" id="zener-vin" value="12" min="0" step="0.1">
+
+        <label>Zener Voltage (Vz) — Volts</label>
+        <input type="number" id="zener-vz" value="5.1" min="0.1" step="0.1">
+
+        <label>Series Resistance (Rs) — Ohms</label>
+        <input type="number" id="zener-rs" value="330" min="0.1" step="1">
+
+        <label>Load Resistance (RL) — Ohms</label>
+        <input type="number" id="zener-rl" value="1000" min="0.1" step="1">
+
+        <div class="bjt-controls">
+            <button onclick="calculateZener()">Calculate</button>
+        </div>
+
+        <div id="zener-calculator-result"></div>
+
+    </div>
+</section>
+
+<!-- ZENER DIODE V-I CHARACTERISTICS -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Zener Diode V-I Characteristics</h2>
+
+        <p>
+            The V-I characteristics describe how current changes
+            with voltage in forward and reverse bias.
+        </p>
+
+        <h3>1. Forward Bias Region</h3>
+        <p>
+            When the anode is positive relative to the cathode,
+            the Zener diode behaves like an ordinary silicon diode.
+            Significant forward current flows after the forward
+            voltage reaches approximately 0.7 V.
+        </p>
+
+        <h3>2. Reverse Leakage Region</h3>
+        <p>
+            When reverse biased, only a very small leakage current
+            flows before the breakdown region is reached.
+        </p>
+
+        <h3>3. Reverse Breakdown Region</h3>
+        <p>
+            When the reverse voltage reaches the Zener breakdown
+            voltage (Vz), the reverse current increases rapidly.
+            The voltage across the diode remains approximately
+            constant over its specified operating-current range.
+        </p>
+
+        <h3>4. Important Terms</h3>
+        <ul>
+            <li><strong>Vz:</strong> Zener breakdown voltage.</li>
+            <li><strong>Iz:</strong> Reverse current through the Zener diode.</li>
+            <li><strong>Iz(min):</strong> Minimum current needed for specified regulation.</li>
+            <li><strong>Iz(max):</strong> Maximum permitted operating current.</li>
+            <li><strong>Rz:</strong> Dynamic resistance in the breakdown region.</li>
+        </ul>
+
+        <p>
+            <strong>Important:</strong> Always use a suitable series
+            resistor to limit current and keep the Zener diode within
+            its rated power and current limits.
+        </p>
+
+    </div>
+</section>
+
+<!-- ZENER DIODE APPLICATIONS -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Applications of Zener Diode</h2>
+
+        <p>
+            Zener diodes are widely used in electronic circuits
+            where a stable reference or controlled voltage is required.
+        </p>
+
+        <h3>1. Voltage Regulation</h3>
+        <p>
+            Maintains an approximately constant output voltage
+            despite suitable changes in input voltage or load current.
+        </p>
+
+        <h3>2. Voltage Reference</h3>
+        <p>
+            Provides a stable reference voltage for measurement
+            and control circuits.
+        </p>
+
+        <h3>3. Overvoltage Protection</h3>
+        <p>
+            Helps protect sensitive electronic components by
+            limiting voltage when connected in a suitable protection circuit.
+        </p>
+
+        <h3>4. Waveform Clipping</h3>
+        <p>
+            Used in clipping circuits to limit signal voltage
+            to selected levels.
+        </p>
+
+        <h3>5. Meter Protection</h3>
+        <p>
+            Can protect sensitive measuring instruments from
+            excessive voltage.
+        </p>
+
+        <h3>6. Switching Circuits</h3>
+        <p>
+            Used in some switching and threshold-detection circuits.
+        </p>
+
+    </div>
+</section>
+
+
+<!-- ZENER DIODE VS PN JUNCTION DIODE -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Zener Diode vs Ordinary PN Junction Diode</h2>
+
+        <div style="overflow-x:auto;">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Zener Diode</th>
+                        <th>Ordinary PN Diode</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Main Purpose</td>
+                        <td>Voltage regulation</td>
+                        <td>Rectification</td>
+                    </tr>
+
+                    <tr>
+                        <td>Reverse Bias</td>
+                        <td>Designed to operate in breakdown</td>
+                        <td>Normally blocks reverse current</td>
+                    </tr>
+
+                    <tr>
+                        <td>Doping</td>
+                        <td>Heavily doped</td>
+                        <td>Generally less heavily doped</td>
+                    </tr>
+
+                    <tr>
+                        <td>Depletion Region</td>
+                        <td>Narrow</td>
+                        <td>Generally wider</td>
+                    </tr>
+
+                    <tr>
+                        <td>Breakdown</td>
+                        <td>Designed for controlled breakdown</td>
+                        <td>Usually avoided during normal operation</td>
+                    </tr>
+
+                    <tr>
+                        <td>Applications</td>
+                        <td>Voltage regulation and protection</td>
+                        <td>Rectifiers and switching circuits</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <p>
+            <strong>Remember:</strong> A Zener diode is designed
+            to operate safely in its specified reverse-breakdown
+            region when current and power are properly limited.
+        </p>
+
+    </div>
+</section>
+
+<!-- IMPORTANT ZENER DIODE FORMULAS -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Important Zener Diode Formulas</h2>
+
+        <h3>1. Series Current</h3>
+        <p><strong>Is = (Vin − Vz) / Rs</strong></p>
+
+        <h3>2. Load Current</h3>
+        <p><strong>IL = Vz / RL</strong></p>
+
+        <h3>3. Zener Current</h3>
+        <p><strong>Iz = Is − IL</strong></p>
+
+        <h3>4. Zener Power</h3>
+        <p><strong>Pz = Vz × Iz</strong></p>
+
+        <h3>5. Series Resistance</h3>
+        <p><strong>Rs = (Vin − Vz) / (Iz + IL)</strong></p>
+
+        <h3>Symbols</h3>
+
+        <ul>
+            <li>Vin = Input voltage (V)</li>
+            <li>Vz = Zener voltage (V)</li>
+            <li>Rs = Series resistance (Ω)</li>
+            <li>RL = Load resistance (Ω)</li>
+            <li>Is = Series current (A)</li>
+            <li>IL = Load current (A)</li>
+            <li>Iz = Zener current (A)</li>
+            <li>Pz = Zener power (W)</li>
+        </ul>
+
+        <p>
+            <strong>Important:</strong> These formulas assume
+            the Zener diode is regulating at approximately Vz.
+            Always check minimum and maximum Zener current,
+            resistor power, and diode power ratings.
+        </p>
+
+    </div>
+</section>
+
+<!-- ZENER DIODE QUICK REVISION NOTES -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Zener Diode – Quick Revision Notes</h2>
+
+        <h3>Definition</h3>
+        <p>
+            A Zener diode is a specially designed PN junction
+            diode that operates in reverse breakdown to maintain
+            an approximately constant voltage.
+        </p>
+
+        <h3>Important Points</h3>
+
+        <ul>
+            <li>It is a heavily doped PN junction diode.</li>
+            <li>It has a narrow depletion region.</li>
+            <li>It is mainly used in reverse bias.</li>
+            <li>Its breakdown voltage is called Zener voltage (Vz).</li>
+            <li>It maintains approximately constant voltage in its regulation region.</li>
+            <li>A series resistor limits the current.</li>
+            <li>It can be used in voltage regulators and protection circuits.</li>
+        </ul>
+
+        <h3>Remember These Formulas</h3>
+
+        <ul>
+            <li>Is = (Vin − Vz) / Rs</li>
+            <li>IL = Vz / RL</li>
+            <li>Iz = Is − IL</li>
+            <li>Pz = Vz × Iz</li>
+        </ul>
+
+        <h3>Exam Tip</h3>
+        <p>
+            The Zener diode is normally operated in reverse bias
+            in the breakdown region for voltage regulation.
+        </p>
+
+    </div>
+</section>
+
+<!-- ZENER DIODE TECHNICAL GLOSSARY -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Zener Diode – Technical Glossary</h2>
+
+        <ul>
+            <li>
+                <strong>PN Junction:</strong>
+                The boundary formed between P-type and N-type semiconductor materials.
+            </li>
+
+            <li>
+                <strong>Reverse Bias:</strong>
+                A condition in which the P-side is connected to negative
+                and the N-side to positive supply.
+            </li>
+
+            <li>
+                <strong>Breakdown Voltage:</strong>
+                The reverse voltage at which current increases rapidly.
+            </li>
+
+            <li>
+                <strong>Zener Voltage (Vz):</strong>
+                The approximate voltage maintained across a regulating Zener diode.
+            </li>
+
+            <li>
+                <strong>Depletion Region:</strong>
+                The region around a PN junction depleted of mobile charge carriers.
+            </li>
+
+            <li>
+                <strong>Leakage Current:</strong>
+                The small reverse current flowing before breakdown.
+            </li>
+
+            <li>
+                <strong>Dynamic Resistance:</strong>
+                The small-signal resistance of the diode in its breakdown region.
+            </li>
+
+            <li>
+                <strong>Voltage Regulation:</strong>
+                Maintaining a nearly constant output voltage.
+            </li>
+
+            <li>
+                <strong>Series Resistor:</strong>
+                A resistor used to limit current through the Zener diode.
+            </li>
+
+            <li>
+                <strong>Power Rating:</strong>
+                The maximum power the Zener diode can safely dissipate under specified conditions.
+            </li>
+        </ul>
+
+    </div>
+</section>
+
+<!-- ZENER DIODE KNOWLEDGE TEST -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Zener Diode – Knowledge Test</h2>
+
+        <p>Test your understanding with these 5 MCQs.</p>
+
+        <form id="zener-quiz">
+
+            <h3>Q1. A Zener diode is mainly operated in:</h3>
+
+            <label>
+                <input type="radio" name="zq1" value="a">
+                Forward bias
+            </label><br>
+
+            <label>
+                <input type="radio" name="zq1" value="b">
+                Reverse breakdown region
+            </label><br>
+
+            <label>
+                <input type="radio" name="zq1" value="c">
+                Zero bias
+            </label><br>
+
+            <label>
+                <input type="radio" name="zq1" value="d">
+                Open circuit
+            </label>
+
+            <hr>
+
+            <h3>Q2. Zener voltage is represented by:</h3>
+
+            <label><input type="radio" name="zq2" value="a"> Vz</label><br>
+            <label><input type="radio" name="zq2" value="b"> VCC</label><br>
+            <label><input type="radio" name="zq2" value="c"> VBE</label><br>
+            <label><input type="radio" name="zq2" value="d"> VCE</label>
+
+            <hr>
+
+            <h3>Q3. Why is a series resistor used with a Zener diode?</h3>
+
+            <label><input type="radio" name="zq3" value="a"> To increase voltage</label><br>
+            <label><input type="radio" name="zq3" value="b"> To store charge</label><br>
+            <label><input type="radio" name="zq3" value="c"> To limit current</label><br>
+            <label><input type="radio" name="zq3" value="d"> To produce light</label>
+
+            <hr>
+
+            <h3>Q4. Which formula represents Zener power?</h3>
+
+            <label><input type="radio" name="zq4" value="a"> Pz = Vz × Iz</label><br>
+            <label><input type="radio" name="zq4" value="b"> Pz = Vz + Iz</label><br>
+            <label><input type="radio" name="zq4" value="c"> Pz = Vz / Iz</label><br>
+            <label><input type="radio" name="zq4" value="d"> Pz = Vz − Iz</label>
+
+            <hr>
+
+            <h3>Q5. A Zener diode is commonly used as a:</h3>
+
+            <label><input type="radio" name="zq5" value="a"> Transformer</label><br>
+            <label><input type="radio" name="zq5" value="b"> Voltage regulator</label><br>
+            <label><input type="radio" name="zq5" value="c"> Motor</label><br>
+            <label><input type="radio" name="zq5" value="d"> Loudspeaker</label>
+
+            <div class="bjt-controls">
+                <button type="button" onclick="checkZenerQuiz()">
+                    Submit Test
+                </button>
+
+                <button type="button" onclick="resetZenerQuiz()">
+                    Reset Test
+                </button>
+            </div>
+
+        </form>
+
+        <div id="zener-quiz-result"></div>
+
+    </div>
+</section>
+
+<!-- ZENER DIODE LEARNING OBJECTIVES -->
+
+<section class="bjt-lab">
+    <div class="bjt-panel">
+
+        <h2>Learning Objectives</h2>
+
+        <p>After completing this Zener Diode Laboratory, students will be able to:</p>
+
+        <ul>
+            <li>Understand the construction and working principle of a Zener diode.</li>
+            <li>Identify the anode and cathode terminals.</li>
+            <li>Explain forward bias and reverse bias operation.</li>
+            <li>Understand the reverse breakdown region and Zener voltage.</li>
+            <li>Explain Zener diode V-I characteristics.</li>
+            <li>Understand the working of a Zener voltage regulator.</li>
+            <li>Calculate series current, load current and Zener current.</li>
+            <li>Calculate Zener power dissipation.</li>
+            <li>Identify practical applications of Zener diodes.</li>
+            <li>Compare Zener diodes with ordinary PN junction diodes.</li>
+        </ul>
+
+        <p>
+            <strong>Learning Outcome:</strong>
+            Students can explain and perform basic ideal calculations
+            for a Zener diode voltage regulator.
+        </p>
+
+    </div>
+</section>
+
+    <footer>
+        <p>© ELECTRO-3D LAB | Student NOC Union</p>
+    </footer>
+
+    <script type="module" src="zener-diode.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Phototransistor Laboratory | ELECTRO-3D LAB</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+        <h2>ELECTRO-3D LAB</h2>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="semiconductor-devices.html">Semiconductor Devices</a>
+        </nav>
+    </header>
+
+    <!-- INTRODUCTION -->
+    <section class="bjt-intro">
+        <h1>Phototransistor Laboratory</h1>
+
+        <p>
+            Explore the 3D structure, working principle
+            and applications of a phototransistor.
+        </p>
+    </section>
+
+    <!-- 3D LABORATORY -->
+    <section class="bjt-lab">
+
+        <div class="bjt-panel">
+
+            <h2>3D Phototransistor Viewer</h2>
+
+            <p>
+                Rotate and explore the phototransistor
+                using mouse controls or hand gestures.
+            </p>
+
+            <div id="phototransistor-viewer" class="bjt-viewer">
+
+                <video
+                    id="phototransistor-camera-background"
+                    autoplay
+                    playsinline>
+                </video>
+
+                <div class="mosfet-overlay">
+                    PHOTOTRANSISTOR 3D LAB
+                </div>
+
+            </div>
+
+            <!-- VIEWER CONTROLS -->
+            <div class="bjt-controls">
+
+                <button id="phototransistor-rotate">
+                    Pause Rotation
+                </button>
+
+                <button id="phototransistor-reset">
+                    Reset View
+                </button>
+
+            </div>
+
+            <!-- CAMERA CONTROLS -->
+            <div class="bjt-controls">
+
+                <button id="phototransistor-start-camera">
+                    Start Camera
+                </button>
+
+                <button id="phototransistor-reset-camera">
+                    Reset Camera
+                </button>
+
+            </div>
+
+            <p id="phototransistor-camera-status">
+                Camera is currently off.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 ELECTRO-3D LAB | Interactive Electronics Learning</p>
+    </footer>
+
+    <script type="module" src="phototransistor.js"></script>
+
+</body>
+</html>
