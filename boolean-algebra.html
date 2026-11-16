@@ -1,0 +1,605 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boolean Algebra Laboratory | ELECTRO-3D LAB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <h2>ELECTRO-3D LAB</h2>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="digital-electronics.html">Digital Electronics</a>
+        </div>
+    </nav>
+
+    <section class="bjt-intro">
+        <h1>Boolean Algebra Laboratory</h1>
+        <p>
+            Learn Boolean expressions, logical laws and the mathematical
+            foundation of digital electronics.
+        </p>
+    </section>
+
+    <section class="module-container">
+
+        <h2>Explore Boolean Algebra</h2>
+
+        <div class="module-grid">
+
+            <div class="module-card">
+                <h3>Introduction</h3>
+                <p>Understand Boolean variables and expressions.</p>
+            </div>
+
+            <div class="module-card">
+                <h3>Basic Boolean Laws</h3>
+                <p>Explore the fundamental laws of Boolean algebra.</p>
+            </div>
+
+            <div class="module-card">
+                <h3>Boolean Theorems</h3>
+                <p>Learn important identities and theorems.</p>
+            </div>
+
+            <div class="module-card">
+                <h3>De Morgan's Theorems</h3>
+                <p>Understand the two important De Morgan's laws.</p>
+            </div>
+
+            <div class="module-card">
+                <h3>Expression Simplification</h3>
+                <p>Learn how to simplify Boolean expressions.</p>
+            </div>
+
+            <div class="module-card">
+                <h3>Knowledge Test</h3>
+                <p>Test your understanding of Boolean algebra.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+<!-- ======================================
+     INTRODUCTION TO BOOLEAN ALGEBRA
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Introduction to Boolean Algebra</h2>
+
+    <div class="pt-info-card">
+
+        <p>
+            Boolean Algebra is a mathematical system used to analyse,
+            represent and simplify digital logic circuits.
+            It was introduced by mathematician George Boole.
+        </p>
+
+        <h3>Boolean Variables</h3>
+
+        <p>
+            Boolean variables can have only two possible values:
+        </p>
+
+        <ul>
+            <li><strong>0:</strong> Represents LOW or FALSE.</li>
+            <li><strong>1:</strong> Represents HIGH or TRUE.</li>
+        </ul>
+
+        <h3>Basic Boolean Operations</h3>
+
+        <ul>
+            <li><strong>AND (·):</strong> Output is 1 only when both inputs are 1.</li>
+            <li><strong>OR (+):</strong> Output is 1 when at least one input is 1.</li>
+            <li><strong>NOT (bar):</strong> Produces the opposite value of the input.</li>
+        </ul>
+
+        <h3>Example</h3>
+
+        <p>
+            If A = 1 and B = 0:
+        </p>
+
+        <ul>
+            <li>A · B = 0</li>
+            <li>A + B = 1</li>
+            <li>NOT A = 0</li>
+        </ul>
+
+        <p>
+            Boolean Algebra is widely used in logic gate design,
+            computer processors, digital systems and VLSI circuits.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     BASIC BOOLEAN LAWS
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Basic Boolean Laws</h2>
+
+    <div class="pt-info-card">
+
+        <h3>1. Identity Law</h3>
+        <p>A + 0 = A</p>
+        <p>A · 1 = A</p>
+
+        <h3>2. Null Law</h3>
+        <p>A + 1 = 1</p>
+        <p>A · 0 = 0</p>
+
+        <h3>3. Idempotent Law</h3>
+        <p>A + A = A</p>
+        <p>A · A = A</p>
+
+        <h3>4. Complement Law</h3>
+        <p>A + A̅ = 1</p>
+        <p>A · A̅ = 0</p>
+
+        <h3>5. Involution Law</h3>
+        <p>(A̅)̅ = A</p>
+
+        <h3>6. Commutative Law</h3>
+        <p>A + B = B + A</p>
+        <p>A · B = B · A</p>
+
+        <h3>7. Associative Law</h3>
+        <p>(A + B) + C = A + (B + C)</p>
+        <p>(A · B) · C = A · (B · C)</p>
+
+        <h3>8. Distributive Law</h3>
+        <p>A · (B + C) = (A · B) + (A · C)</p>
+        <p>A + (B · C) = (A + B) · (A + C)</p>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     BOOLEAN ALGEBRA THEOREMS
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Important Boolean Theorems</h2>
+
+    <div class="pt-info-card">
+
+        <h3>1. Absorption Theorem</h3>
+        <p>A + (A · B) = A</p>
+        <p>A · (A + B) = A</p>
+
+        <h3>2. Redundancy Theorem</h3>
+        <p>A + (A̅ · B) = A + B</p>
+        <p>A · (A̅ + B) = A · B</p>
+
+        <h3>3. Consensus Theorem</h3>
+        <p>(A · B) + (A̅ · C) + (B · C) = (A · B) + (A̅ · C)</p>
+
+        <h3>4. De Morgan's First Theorem</h3>
+        <p>(A · B)̅ = A̅ + B̅</p>
+
+        <h3>5. De Morgan's Second Theorem</h3>
+        <p>(A + B)̅ = A̅ · B̅</p>
+
+        <p>
+            <strong>Why are these theorems important?</strong>
+            They help simplify Boolean expressions and reduce
+            the number of logic gates required in digital circuits.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     DE MORGAN'S THEOREMS
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>De Morgan's Theorems</h2>
+
+    <div class="pt-info-card">
+
+        <p>
+            De Morgan's Theorems explain how to transform
+            complemented AND and OR expressions into equivalent
+            Boolean expressions.
+        </p>
+
+        <h3>First Theorem — Complement of AND</h3>
+
+        <p><strong>Formula:</strong></p>
+        <p>(A · B)̅ = A̅ + B̅</p>
+
+        <p><strong>Meaning:</strong></p>
+        <p>
+            The complement of an AND operation is equivalent
+            to the OR operation of the complemented inputs.
+        </p>
+
+        <p><strong>Example:</strong></p>
+        <p>
+            If A = 1 and B = 1:
+            <br>
+            (1 · 1)̅ = 0
+            <br>
+            1̅ + 1̅ = 0 + 0 = 0
+        </p>
+
+        <h3>Second Theorem — Complement of OR</h3>
+
+        <p><strong>Formula:</strong></p>
+        <p>(A + B)̅ = A̅ · B̅</p>
+
+        <p><strong>Meaning:</strong></p>
+        <p>
+            The complement of an OR operation is equivalent
+            to the AND operation of the complemented inputs.
+        </p>
+
+        <p><strong>Example:</strong></p>
+        <p>
+            If A = 1 and B = 0:
+            <br>
+            (1 + 0)̅ = 0
+            <br>
+            1̅ · 0̅ = 0 · 1 = 0
+        </p>
+
+        <h3>Applications</h3>
+
+        <ul>
+            <li>Simplification of Boolean expressions.</li>
+            <li>Conversion between AND, OR and NOT operations.</li>
+            <li>Design of NAND and NOR circuits.</li>
+            <li>Digital circuit optimization.</li>
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     BOOLEAN EXPRESSION SIMPLIFICATION
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Boolean Expression Simplification</h2>
+
+    <div class="pt-info-card">
+
+        <p>
+            Boolean expression simplification reduces a logical
+            expression to an equivalent but simpler form.
+            This can reduce the number of gates needed in a circuit.
+        </p>
+
+        <h3>Example 1 — Idempotent Law</h3>
+        <p><strong>Given:</strong> A + A</p>
+        <p><strong>Using:</strong> A + A = A</p>
+        <p><strong>Answer:</strong> A</p>
+
+        <h3>Example 2 — Complement Law</h3>
+        <p><strong>Given:</strong> A + A̅</p>
+        <p><strong>Using:</strong> A + A̅ = 1</p>
+        <p><strong>Answer:</strong> 1</p>
+
+        <h3>Example 3 — Absorption Law</h3>
+        <p><strong>Given:</strong> A + (A · B)</p>
+        <p><strong>Using:</strong> A + (A · B) = A</p>
+        <p><strong>Answer:</strong> A</p>
+
+        <h3>Example 4 — Distributive Law</h3>
+        <p><strong>Given:</strong> A · (B + C)</p>
+        <p><strong>Using:</strong> A · (B + C) = AB + AC</p>
+        <p><strong>Answer:</strong> AB + AC</p>
+
+        <h3>Example 5 — De Morgan's Theorem</h3>
+        <p><strong>Given:</strong> (A · B)̅</p>
+        <p><strong>Using:</strong> (A · B)̅ = A̅ + B̅</p>
+        <p><strong>Answer:</strong> A̅ + B̅</p>
+
+        <h3>Why Simplification Matters</h3>
+
+        <ul>
+            <li>Reduces the number of logic gates.</li>
+            <li>Can reduce circuit complexity and cost.</li>
+            <li>Can reduce power consumption.</li>
+            <li>Can improve circuit performance.</li>
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     BOOLEAN SIMPLIFICATION PRACTICE
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Boolean Algebra Practice Tool</h2>
+
+    <div class="pt-info-card">
+
+        <p>Select an expression to see its simplified result.</p>
+
+        <label for="boolean-expression">
+            Choose a Boolean Expression:
+        </label>
+
+        <select id="boolean-expression">
+            <option value="">Select an expression</option>
+            <option value="1">A + A</option>
+            <option value="2">A · A</option>
+            <option value="3">A + 0</option>
+            <option value="4">A · 1</option>
+            <option value="5">A + A̅</option>
+            <option value="6">A · A̅</option>
+            <option value="7">A + (A · B)</option>
+            <option value="8">(A · B)̅</option>
+            <option value="9">(A + B)̅</option>
+        </select>
+
+        <button type="button" onclick="simplifyBooleanExpression()">
+            Simplify Expression
+        </button>
+
+        <div class="logic-output">
+
+            <h3>Simplified Result</h3>
+
+            <p id="boolean-result">
+                Your simplified expression will appear here.
+            </p>
+
+            <p id="boolean-law"></p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     BOOLEAN ALGEBRA APPLICATIONS
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Applications of Boolean Algebra</h2>
+
+    <div class="pt-info-card">
+
+        <h3>1. Computer Processors</h3>
+        <p>
+            Used to design arithmetic and logical operations
+            inside CPU circuits.
+        </p>
+
+        <h3>2. Digital Logic Circuits</h3>
+        <p>
+            Helps design and simplify circuits using logic gates.
+        </p>
+
+        <h3>3. Memory Systems</h3>
+        <p>
+            Used in the design of digital memory and storage circuits.
+        </p>
+
+        <h3>4. VLSI Design</h3>
+        <p>
+            Helps optimize complex integrated circuits by reducing
+            unnecessary logic operations.
+        </p>
+
+        <h3>5. Communication Systems</h3>
+        <p>
+            Used in digital signal processing and communication logic.
+        </p>
+
+        <h3>6. Control Systems</h3>
+        <p>
+            Helps implement logical conditions in automated systems.
+        </p>
+
+        <h3>7. Embedded Systems</h3>
+        <p>
+            Used in microcontrollers and electronic devices
+            to perform logical decisions.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     BOOLEAN ALGEBRA KNOWLEDGE TEST
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Boolean Algebra Knowledge Test</h2>
+
+    <div class="pt-info-card">
+
+        <form id="boolean-quiz">
+
+            <p><strong>1. What values can a Boolean variable have?</strong></p>
+            <label><input type="radio" name="bq1" value="a"> 0 and 1</label><br>
+            <label><input type="radio" name="bq1" value="b"> 1 and 2</label><br>
+            <label><input type="radio" name="bq1" value="c"> 2 and 3</label>
+
+            <p><strong>2. What is A + 0 equal to?</strong></p>
+            <label><input type="radio" name="bq2" value="a"> 0</label><br>
+            <label><input type="radio" name="bq2" value="b"> A</label><br>
+            <label><input type="radio" name="bq2" value="c"> 1</label>
+
+            <p><strong>3. Which law states A + A = A?</strong></p>
+            <label><input type="radio" name="bq3" value="a"> Identity Law</label><br>
+            <label><input type="radio" name="bq3" value="b"> Complement Law</label><br>
+            <label><input type="radio" name="bq3" value="c"> Idempotent Law</label>
+
+            <p><strong>4. What is A + A̅ equal to?</strong></p>
+            <label><input type="radio" name="bq4" value="a"> 0</label><br>
+            <label><input type="radio" name="bq4" value="b"> A</label><br>
+            <label><input type="radio" name="bq4" value="c"> 1</label>
+
+            <p><strong>5. Which theorem states (A · B)̅ = A̅ + B̅?</strong></p>
+            <label><input type="radio" name="bq5" value="a"> Associative Theorem</label><br>
+            <label><input type="radio" name="bq5" value="b"> De Morgan's First Theorem</label><br>
+            <label><input type="radio" name="bq5" value="c"> Distributive Theorem</label>
+
+            <br>
+
+            <button type="button" onclick="checkBooleanQuiz()">
+                Submit Answers
+            </button>
+
+            <button type="button" onclick="resetBooleanQuiz()">
+                Reset Quiz
+            </button>
+
+        </form>
+
+        <h3 id="boolean-quiz-result">
+            Your result will appear here.
+        </h3>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     BOOLEAN ALGEBRA QUICK REVISION
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Boolean Algebra Quick Revision Notes</h2>
+
+    <div class="pt-info-card">
+
+        <ul>
+            <li><strong>Boolean Algebra:</strong> Mathematical system used in digital logic.</li>
+            <li><strong>Boolean Values:</strong> 0 (LOW/FALSE) and 1 (HIGH/TRUE).</li>
+            <li><strong>AND Operation:</strong> A · B</li>
+            <li><strong>OR Operation:</strong> A + B</li>
+            <li><strong>NOT Operation:</strong> A̅</li>
+            <li><strong>Identity Law:</strong> A + 0 = A; A · 1 = A.</li>
+            <li><strong>Null Law:</strong> A + 1 = 1; A · 0 = 0.</li>
+            <li><strong>Idempotent Law:</strong> A + A = A; A · A = A.</li>
+            <li><strong>Complement Law:</strong> A + A̅ = 1; A · A̅ = 0.</li>
+            <li><strong>Commutative Law:</strong> A + B = B + A.</li>
+            <li><strong>Associative Law:</strong> Grouping does not change the result.</li>
+            <li><strong>Distributive Law:</strong> A · (B + C) = AB + AC.</li>
+            <li><strong>De Morgan's First Theorem:</strong> (A · B)̅ = A̅ + B̅.</li>
+            <li><strong>De Morgan's Second Theorem:</strong> (A + B)̅ = A̅ · B̅.</li>
+            <li><strong>Absorption Law:</strong> A + AB = A.</li>
+            <li><strong>Main Purpose:</strong> Simplify digital logic expressions and circuits.</li>
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     BOOLEAN ALGEBRA TECHNICAL GLOSSARY
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Boolean Algebra Technical Glossary</h2>
+
+    <div class="pt-info-card">
+
+        <ul>
+            <li><strong>Boolean Algebra:</strong> Mathematical system used to represent and simplify logical expressions.</li>
+
+            <li><strong>Boolean Variable:</strong> A variable that can have only two values, 0 or 1.</li>
+
+            <li><strong>Boolean Expression:</strong> An expression formed using Boolean variables and logical operators.</li>
+
+            <li><strong>Logical Operator:</strong> An operation such as AND, OR or NOT.</li>
+
+            <li><strong>Complement:</strong> The opposite logical value of a Boolean variable.</li>
+
+            <li><strong>Identity Law:</strong> A law stating that A + 0 = A and A · 1 = A.</li>
+
+            <li><strong>Idempotent Law:</strong> A law stating that A + A = A and A · A = A.</li>
+
+            <li><strong>Distributive Law:</strong> A law describing how AND and OR operations distribute over each other.</li>
+
+            <li><strong>Absorption Law:</strong> A law used to eliminate redundant terms from Boolean expressions.</li>
+
+            <li><strong>De Morgan's Theorems:</strong> Rules for transforming complemented AND and OR expressions.</li>
+
+            <li><strong>Expression Simplification:</strong> Reducing a Boolean expression to an equivalent simpler form.</li>
+
+            <li><strong>Logic Circuit:</strong> An electronic circuit that performs logical operations.</li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     BOOLEAN ALGEBRA LEARNING OBJECTIVES
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Learning Objectives</h2>
+
+    <div class="pt-info-card">
+
+        <p>After completing this Boolean Algebra Laboratory, students will be able to:</p>
+
+        <ul>
+            <li>Understand the fundamentals of Boolean Algebra.</li>
+
+            <li>Identify Boolean variables and logical operators.</li>
+
+            <li>Explain the basic laws of Boolean Algebra.</li>
+
+            <li>Apply important Boolean theorems.</li>
+
+            <li>Understand and apply De Morgan's Theorems.</li>
+
+            <li>Simplify Boolean expressions using algebraic laws.</li>
+
+            <li>Operate the interactive Boolean Algebra Practice Tool.</li>
+
+            <li>Recognize the applications of Boolean Algebra in digital electronics and VLSI design.</li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+<script src="boolean-algebra.js"></script>
+
+    <footer>
+        <p>© 2026 ELECTRO-3D LAB | Interactive Electronics Laboratory</p>
+    </footer>
+
+</body>
+</html>

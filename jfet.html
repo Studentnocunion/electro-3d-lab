@@ -1,0 +1,562 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JFET Laboratory | ELECTRO-3D LAB</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+    }
+    </script>
+    
+
+   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.js"></script>
+
+</head>
+
+<body>
+
+    <header class="navbar">
+        <h2>ELECTRO-3D LAB</h2>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="semiconductor-devices.html">Semiconductor Devices</a>
+        </nav>
+    </header>
+
+
+    <section class="bjt-intro">
+
+        <h1>JFET 3D Laboratory</h1>
+
+        <p>
+            Explore the Junction Field Effect Transistor
+            using interactive 3D visualization and AI hand gestures.
+        </p>
+
+    </section>
+
+
+    <section class="bjt-lab">
+
+        <div class="bjt-panel">
+
+            <h2>3D JFET Viewer</h2>
+
+            <div id="jfet-viewer" class="bjt-viewer">
+
+                <video
+                    id="jfet-camera-background"
+                    autoplay
+                    playsinline>
+                </video>
+
+                <div class="mosfet-overlay">
+                    AI HAND CONTROLLED JFET
+                </div>
+
+            </div>
+
+
+            <div class="bjt-controls">
+
+                <button id="jfet-rotate">
+                    Pause Rotation
+                </button>
+
+                <button id="jfet-reset">
+                    Reset View
+                </button>
+
+                <button id="jfet-start-camera">
+                    Start Camera
+                </button>
+
+                <button id="jfet-reset-camera">
+                    Stop Camera
+                </button>
+
+                <p id="jfet-camera-status">
+                    Camera Not Started
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<!-- ======================================
+     JFET WORKING PRINCIPLE
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>JFET Working Principle</h2>
+
+    <div class="pt-info-grid">
+
+        <div class="pt-info-card">
+            <h3>1. Basic Concept</h3>
+            <p>A Junction Field Effect Transistor (JFET) is a voltage-controlled semiconductor device that controls current using an electric field.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>2. Semiconductor Channel</h3>
+            <p>Current flows through a semiconductor channel between the Drain and Source terminals.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>3. Gate Control</h3>
+            <p>The Gate-to-Source voltage controls the width of the depletion regions and therefore the channel conductivity.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>4. Current Control</h3>
+            <p>Changing the Gate-to-Source voltage changes the Drain current.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>5. Reverse Bias</h3>
+            <p>In normal operation, the Gate-to-Channel PN junction is reverse biased, resulting in very small gate current.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>6. Pinch-Off</h3>
+            <p>As the reverse bias increases, the channel narrows. At pinch-off, the Drain current approaches saturation for a given Gate voltage.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     JFET CONSTRUCTION AND TERMINALS
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>JFET Construction and Terminals</h2>
+
+    <div class="pt-info-grid">
+
+        <div class="pt-info-card">
+            <h3>1. Semiconductor Channel</h3>
+            <p>An N-channel JFET uses an N-type semiconductor channel through which electrons flow from Source to Drain.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>2. Gate Region</h3>
+            <p>Two P-type regions form PN junctions with the N-type channel. These regions are connected to the Gate terminal.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>3. Source (S)</h3>
+            <p>The Source terminal supplies majority charge carriers into the channel.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>4. Drain (D)</h3>
+            <p>The Drain terminal collects majority charge carriers from the channel during normal operation.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>5. Gate (G)</h3>
+            <p>The Gate controls channel width through reverse bias. Its current is normally very small.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>6. Majority Charge Carriers</h3>
+            <p>Electrons are the majority carriers in an N-channel JFET. A P-channel JFET uses holes.</p>
+        </div>
+
+    </div>
+
+    <p><strong>Note:</strong> This laboratory demonstrates an N-channel JFET. A P-channel JFET has the opposite semiconductor polarities and voltage polarities.</p>
+
+</section>
+
+<!-- ======================================
+     JFET OPERATING MODES
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>JFET Operating Modes</h2>
+
+    <div class="pt-info-grid">
+
+        <div class="pt-info-card">
+            <h3>1. Ohmic (Linear) Region</h3>
+            <p>The JFET behaves approximately like a voltage-controlled resistor. Drain current increases with Drain-to-Source voltage.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>2. Pinch-Off (Saturation) Region</h3>
+            <p>The channel becomes constricted near the Drain. Drain current becomes approximately constant for a fixed Gate-to-Source voltage.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>3. Cutoff Region</h3>
+            <p>When the reverse Gate-to-Source voltage reaches the cutoff value, the channel closes and Drain current becomes nearly zero.</p>
+        </div>
+
+    </div>
+
+    <p><strong>Important:</strong> Pinch-off does not mean the JFET is switched off. In the saturation region, current can still flow. Cutoff is the condition where the Drain current is nearly zero.</p>
+
+</section>
+
+
+<!-- ======================================
+     JFET APPLICATIONS
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>JFET Applications</h2>
+
+    <div class="pt-info-grid">
+
+        <div class="pt-info-card">
+            <h3>1. Amplifiers</h3>
+            <p>JFETs amplify weak electrical signals in electronic circuits.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>2. Buffer Circuits</h3>
+            <p>High input impedance makes JFETs useful as buffer amplifiers between circuit stages.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>3. Low-Noise Circuits</h3>
+            <p>JFETs are used in sensitive audio and measurement circuits where low noise is important.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>4. Analog Switches</h3>
+            <p>JFETs can control analog signals by switching the channel between conducting and cutoff conditions.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>5. Constant-Current Sources</h3>
+            <p>JFET circuits can provide approximately constant current over a range of operating voltages.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>6. Impedance Matching</h3>
+            <p>JFETs help connect circuit stages with different impedance levels while reducing signal loading.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     JFET COMPARISON
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>JFET vs MOSFET vs BJT</h2>
+
+    <div class="pt-info-card">
+
+        <table class="comparison-table">
+
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>JFET</th>
+                    <th>MOSFET</th>
+                    <th>BJT</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Control</td>
+                    <td>Voltage</td>
+                    <td>Voltage</td>
+                    <td>Current</td>
+                </tr>
+
+                <tr>
+                    <td>Input Impedance</td>
+                    <td>High</td>
+                    <td>Very High</td>
+                    <td>Moderate</td>
+                </tr>
+
+                <tr>
+                    <td>Gate Structure</td>
+                    <td>PN Junction</td>
+                    <td>Insulated Gate</td>
+                    <td>Base Junction</td>
+                </tr>
+
+                <tr>
+                    <td>Gate/Base Current</td>
+                    <td>Very Small</td>
+                    <td>Nearly Zero DC</td>
+                    <td>Required</td>
+                </tr>
+
+                <tr>
+                    <td>Majority Carriers</td>
+                    <td>Electrons or Holes</td>
+                    <td>Electrons or Holes</td>
+                    <td>Both</td>
+                </tr>
+
+                <tr>
+                    <td>Device Type</td>
+                    <td>Unipolar</td>
+                    <td>Unipolar</td>
+                    <td>Bipolar</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     IMPORTANT JFET FORMULAS
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Important JFET Formulas</h2>
+
+    <div class="pt-info-grid">
+
+        <div class="pt-info-card">
+            <h3>1. Shockley Equation</h3>
+            <p><strong>ID = IDSS × (1 − VGS / VGS(off))²</strong></p>
+            <p>Calculates Drain current in the saturation region for an N-channel JFET.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>2. Drain Current at VGS = 0</h3>
+            <p><strong>ID = IDSS</strong></p>
+            <p>At zero Gate-to-Source voltage, Drain current is approximately IDSS in saturation.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>3. Drain-to-Source Voltage</h3>
+            <p><strong>VDS = VD − VS</strong></p>
+            <p>Voltage difference between the Drain and Source terminals.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>4. Gate-to-Source Voltage</h3>
+            <p><strong>VGS = VG − VS</strong></p>
+            <p>Controls the channel width and Drain current.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>5. Drain Power</h3>
+            <p><strong>PD = VDS × ID</strong></p>
+            <p>Power dissipated by the JFET, using the stated voltage and current sign convention.</p>
+        </div>
+
+    </div>
+
+    <p><strong>Symbol meanings:</strong> ID = Drain current, IDSS = Drain current at VGS = 0 in saturation, VGS = Gate-to-Source voltage, and VGS(off) = Gate cutoff voltage. For an N-channel JFET, VGS and VGS(off) are normally negative. The Shockley equation is an idealized model.</p>
+
+</section>
+
+<!-- ======================================
+     JFET QUICK REVISION
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>JFET Quick Revision Notes</h2>
+
+    <div class="pt-info-card">
+
+        <ul>
+            <li><strong>Full Form:</strong> Junction Field Effect Transistor.</li>
+            <li><strong>Device Type:</strong> Unipolar, voltage-controlled semiconductor device.</li>
+            <li><strong>Terminals:</strong> Gate, Drain and Source.</li>
+            <li><strong>Channel Types:</strong> N-channel and P-channel.</li>
+            <li><strong>Gate Junction:</strong> Normally reverse biased during operation.</li>
+            <li><strong>Input Impedance:</strong> High.</li>
+            <li><strong>Gate Current:</strong> Very small.</li>
+            <li><strong>Current Control:</strong> Gate-to-Source voltage controls Drain current.</li>
+            <li><strong>Pinch-Off:</strong> Drain current enters the saturation region for a given gate voltage.</li>
+            <li><strong>Cutoff:</strong> Drain current becomes nearly zero.</li>
+            <li><strong>Important Equation:</strong> Shockley equation.</li>
+            <li><strong>Applications:</strong> Amplifiers, buffers, analog switches and constant-current sources.</li>
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     JFET TECHNICAL GLOSSARY
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>JFET Technical Glossary</h2>
+
+    <div class="pt-info-grid">
+
+        <div class="pt-info-card">
+            <h3>JFET</h3>
+            <p>Junction Field Effect Transistor, a voltage-controlled semiconductor device.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>Channel</h3>
+            <p>The semiconductor path through which current flows between Drain and Source.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>Gate</h3>
+            <p>The control terminal that regulates channel conductivity.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>Depletion Region</h3>
+            <p>A region around a PN junction with very few mobile charge carriers.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>Pinch-Off</h3>
+            <p>The condition where the channel becomes constricted near the Drain and current approaches saturation.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>Cutoff Voltage</h3>
+            <p>The Gate-to-Source voltage at which Drain current becomes nearly zero.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>IDSS</h3>
+            <p>The Drain current at zero Gate-to-Source voltage in the saturation region.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>Reverse Bias</h3>
+            <p>A bias condition that widens the depletion region of a PN junction.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     JFET KNOWLEDGE TEST
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>JFET Knowledge Test</h2>
+
+    <div class="pt-info-card">
+
+        <form id="jfet-quiz">
+
+            <p><strong>1. What is the full form of JFET?</strong></p>
+            <label><input type="radio" name="jq1" value="a"> Junction Field Effect Transistor</label><br>
+            <label><input type="radio" name="jq1" value="b"> Joint Frequency Electronic Transistor</label><br>
+            <label><input type="radio" name="jq1" value="c"> Junction Frequency Effect Technology</label>
+
+            <hr>
+
+            <p><strong>2. How is the Gate junction normally biased in a JFET?</strong></p>
+            <label><input type="radio" name="jq2" value="a"> Forward biased</label><br>
+            <label><input type="radio" name="jq2" value="b"> Reverse biased</label><br>
+            <label><input type="radio" name="jq2" value="c"> Unbiased</label>
+
+            <hr>
+
+            <p><strong>3. Which terminal controls the Drain current?</strong></p>
+            <label><input type="radio" name="jq3" value="a"> Source</label><br>
+            <label><input type="radio" name="jq3" value="b"> Drain</label><br>
+            <label><input type="radio" name="jq3" value="c"> Gate</label>
+
+            <hr>
+
+            <p><strong>4. What happens at JFET cutoff?</strong></p>
+            <label><input type="radio" name="jq4" value="a"> Drain current becomes nearly zero</label><br>
+            <label><input type="radio" name="jq4" value="b"> Drain current becomes maximum</label><br>
+            <label><input type="radio" name="jq4" value="c"> Gate current becomes maximum</label>
+
+            <hr>
+
+            <p><strong>5. Which equation is commonly used to model JFET Drain current in saturation?</strong></p>
+            <label><input type="radio" name="jq5" value="a"> Ohm's law only</label><br>
+            <label><input type="radio" name="jq5" value="b"> Shockley equation</label><br>
+            <label><input type="radio" name="jq5" value="c"> Faraday's law</label>
+
+            <br><br>
+
+            <button type="button" onclick="checkJFETQuiz()">Submit Answers</button>
+            <button type="reset" onclick="resetJFETQuiz()">Reset Quiz</button>
+
+            <h3 id="jfet-quiz-result">Your result will appear here.</h3>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     JFET LEARNING OBJECTIVES
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>JFET Learning Objectives</h2>
+
+    <div class="pt-info-card">
+
+        <p>After completing this JFET laboratory, students will be able to:</p>
+
+        <ul>
+            <li>Understand the basic concept and working principle of JFET.</li>
+            <li>Identify the Gate, Drain and Source terminals.</li>
+            <li>Understand N-channel and P-channel JFET structures.</li>
+            <li>Explain the role of reverse bias in controlling channel width.</li>
+            <li>Understand ohmic, saturation and cutoff operating regions.</li>
+            <li>Apply the Shockley equation to calculate Drain current.</li>
+            <li>Differentiate between JFET, MOSFET and BJT.</li>
+            <li>Identify practical applications of JFET devices.</li>
+            <li>Explore a JFET model using 3D and AI hand gestures.</li>
+        </ul>
+
+    </div>
+
+</section>
+
+    <footer>
+        <p>ELECTRO-3D LAB | Interactive Electronics Laboratory</p>
+    </footer>
+
+
+    <script type="module" src="jfet.js"></script>
+
+</body>
+</html>

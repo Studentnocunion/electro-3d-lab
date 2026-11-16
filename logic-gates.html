@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Logic Gates Laboratory | ELECTRO-3D LAB</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <h2>ELECTRO-3D LAB</h2>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="digital-electronics.html">Digital Electronics</a>
+        </nav>
+    </header>
+
+    <section class="bjt-intro">
+
+        <h1>Logic Gates Laboratory</h1>
+
+        <p>
+            Understand how digital logic gates process binary inputs
+            and produce binary outputs.
+        </p>
+
+    </section>
+
+    <section class="bjt-lab">
+
+        <div class="bjt-panel">
+
+            <h2>Explore Logic Gates</h2>
+
+            <div class="module-grid">
+
+                <a href="#and-gate" class="module-card">
+                    <h3>AND Gate</h3>
+                    <p>Output is HIGH when all inputs are HIGH.</p>
+                </a>
+
+                <a href="#or-gate" class="module-card">
+                    <h3>OR Gate</h3>
+                    <p>Output is HIGH when at least one input is HIGH.</p>
+                </a>
+
+                <a href="#not-gate" class="module-card">
+                    <h3>NOT Gate</h3>
+                    <p>Produces the opposite of its input.</p>
+                </a>
+
+                <a href="#nand-gate" class="module-card">
+                    <h3>NAND Gate</h3>
+                    <p>Produces the opposite of AND.</p>
+                </a>
+
+                <a href="#nor-gate" class="module-card">
+                    <h3>NOR Gate</h3>
+                    <p>Produces the opposite of OR.</p>
+                </a>
+
+                <a href="#xor-gate" class="module-card">
+                    <h3>XOR Gate</h3>
+                    <p>Output is HIGH when inputs are different.</p>
+                </a>
+
+                <a href="#xnor-gate" class="module-card">
+                    <h3>XNOR Gate</h3>
+                    <p>Output is HIGH when inputs are the same.</p>
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<!-- ======================================
+     INTERACTIVE LOGIC GATE SIMULATOR
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Interactive Logic Gates Simulator</h2>
+
+    <div class="pt-info-card logic-simulator">
+
+        <h3>Select Logic Gate</h3>
+
+        <select id="gate-select">
+            <option value="AND">AND Gate</option>
+            <option value="OR">OR Gate</option>
+            <option value="NOT">NOT Gate</option>
+            <option value="NAND">NAND Gate</option>
+            <option value="NOR">NOR Gate</option>
+            <option value="XOR">XOR Gate</option>
+            <option value="XNOR">XNOR Gate</option>
+        </select>
+
+        <h3>Binary Inputs</h3>
+
+        <div class="logic-inputs">
+
+            <div>
+                <p>Input A</p>
+                <button id="input-a" type="button">0</button>
+            </div>
+
+            <div id="input-b-container">
+                <p>Input B</p>
+                <button id="input-b" type="button">0</button>
+            </div>
+
+        </div>
+
+        <div class="logic-output">
+
+            <h3>Gate Output</h3>
+
+            <div id="gate-output">0</div>
+
+            <p id="gate-explanation">
+                Output is LOW.
+            </p>
+
+        </div>
+
+        <button id="logic-reset" type="button">
+            Reset Inputs
+        </button>
+
+    </div>
+
+</section>
+<script src="logic-gates.js"></script>
+
+<!-- ======================================
+     LOGIC GATES TRUTH TABLES
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Logic Gates Truth Tables</h2>
+
+    <div class="pt-info-card">
+
+        <h3>AND Gate</h3>
+        <table class="comparison-table">
+            <tr><th>A</th><th>B</th><th>Output</th></tr>
+            <tr><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>0</td><td>1</td><td>0</td></tr>
+            <tr><td>1</td><td>0</td><td>0</td></tr>
+            <tr><td>1</td><td>1</td><td>1</td></tr>
+        </table>
+
+        <h3>OR Gate</h3>
+        <table class="comparison-table">
+            <tr><th>A</th><th>B</th><th>Output</th></tr>
+            <tr><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>0</td><td>1</td><td>1</td></tr>
+            <tr><td>1</td><td>0</td><td>1</td></tr>
+            <tr><td>1</td><td>1</td><td>1</td></tr>
+        </table>
+
+        <h3>NOT Gate</h3>
+        <table class="comparison-table">
+            <tr><th>A</th><th>Output</th></tr>
+            <tr><td>0</td><td>1</td></tr>
+            <tr><td>1</td><td>0</td></tr>
+        </table>
+
+        <h3>NAND Gate</h3>
+        <table class="comparison-table">
+            <tr><th>A</th><th>B</th><th>Output</th></tr>
+            <tr><td>0</td><td>0</td><td>1</td></tr>
+            <tr><td>0</td><td>1</td><td>1</td></tr>
+            <tr><td>1</td><td>0</td><td>1</td></tr>
+            <tr><td>1</td><td>1</td><td>0</td></tr>
+        </table>
+
+        <h3>NOR Gate</h3>
+        <table class="comparison-table">
+            <tr><th>A</th><th>B</th><th>Output</th></tr>
+            <tr><td>0</td><td>0</td><td>1</td></tr>
+            <tr><td>0</td><td>1</td><td>0</td></tr>
+            <tr><td>1</td><td>0</td><td>0</td></tr>
+            <tr><td>1</td><td>1</td><td>0</td></tr>
+        </table>
+
+        <h3>XOR Gate</h3>
+        <table class="comparison-table">
+            <tr><th>A</th><th>B</th><th>Output</th></tr>
+            <tr><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>0</td><td>1</td><td>1</td></tr>
+            <tr><td>1</td><td>0</td><td>1</td></tr>
+            <tr><td>1</td><td>1</td><td>0</td></tr>
+        </table>
+
+        <h3>XNOR Gate</h3>
+        <table class="comparison-table">
+            <tr><th>A</th><th>B</th><th>Output</th></tr>
+            <tr><td>0</td><td>0</td><td>1</td></tr>
+            <tr><td>0</td><td>1</td><td>0</td></tr>
+            <tr><td>1</td><td>0</td><td>0</td></tr>
+            <tr><td>1</td><td>1</td><td>1</td></tr>
+        </table>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     BOOLEAN EXPRESSIONS
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Logic Gate Boolean Expressions</h2>
+
+    <div class="pt-info-grid">
+
+        <div class="pt-info-card">
+            <h3>AND Gate</h3>
+            <p><strong>Y = A · B</strong></p>
+            <p>Output is HIGH only when both inputs are HIGH.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>OR Gate</h3>
+            <p><strong>Y = A + B</strong></p>
+            <p>Output is HIGH when at least one input is HIGH.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>NOT Gate</h3>
+            <p><strong>Y = A̅</strong></p>
+            <p>Output is the complement of the input.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>NAND Gate</h3>
+            <p><strong>Y = (A · B)̅</strong></p>
+            <p>Output is the complement of AND.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>NOR Gate</h3>
+            <p><strong>Y = (A + B)̅</strong></p>
+            <p>Output is the complement of OR.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>XOR Gate</h3>
+            <p><strong>Y = A ⊕ B</strong></p>
+            <p>Output is HIGH when the inputs are different.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>XNOR Gate</h3>
+            <p><strong>Y = (A ⊕ B)̅</strong></p>
+            <p>Output is HIGH when the inputs are equal.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     LOGIC GATE APPLICATIONS
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Applications of Logic Gates</h2>
+
+    <div class="pt-info-grid">
+
+        <div class="pt-info-card">
+            <h3>1. Computers and Processors</h3>
+            <p>Logic gates perform arithmetic, logical operations and decision-making inside processors.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>2. Memory Circuits</h3>
+            <p>Logic gates are used in memory control circuits and digital storage systems.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>3. Digital Clocks</h3>
+            <p>Logic circuits help control timing, counting and display operations.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>4. Communication Systems</h3>
+            <p>Used in digital signal processing, encoding and data transmission circuits.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>5. Security Systems</h3>
+            <p>Used to combine sensor signals and implement digital access-control logic.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>6. Industrial Automation</h3>
+            <p>Used in control systems, digital controllers and automated machines.</p>
+        </div>
+
+        <div class="pt-info-card">
+            <h3>7. VLSI Design</h3>
+            <p>Logic gates are fundamental building blocks of integrated circuits and digital chips.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     LOGIC GATES KNOWLEDGE TEST
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Logic Gates Knowledge Test</h2>
+
+    <div class="pt-info-card">
+
+        <form id="logic-quiz">
+
+            <p><strong>1. Which gate produces HIGH output only when both inputs are HIGH?</strong></p>
+            <label><input type="radio" name="lq1" value="a"> OR</label><br>
+            <label><input type="radio" name="lq1" value="b"> AND</label><br>
+            <label><input type="radio" name="lq1" value="c"> NOT</label>
+
+            <hr>
+
+            <p><strong>2. Which gate is known as an inverter?</strong></p>
+            <label><input type="radio" name="lq2" value="a"> NAND</label><br>
+            <label><input type="radio" name="lq2" value="b"> XOR</label><br>
+            <label><input type="radio" name="lq2" value="c"> NOT</label>
+
+            <hr>
+
+            <p><strong>3. What is the output of XOR when A = 1 and B = 1?</strong></p>
+            <label><input type="radio" name="lq3" value="a"> 0</label><br>
+            <label><input type="radio" name="lq3" value="b"> 1</label><br>
+            <label><input type="radio" name="lq3" value="c"> Undefined</label>
+
+            <hr>
+
+            <p><strong>4. Which gates are called universal gates?</strong></p>
+            <label><input type="radio" name="lq4" value="a"> AND and OR</label><br>
+            <label><input type="radio" name="lq4" value="b"> XOR and XNOR</label><br>
+            <label><input type="radio" name="lq4" value="c"> NAND and NOR</label>
+
+            <hr>
+
+            <p><strong>5. What is the output of NOR when A = 0 and B = 0?</strong></p>
+            <label><input type="radio" name="lq5" value="a"> 0</label><br>
+            <label><input type="radio" name="lq5" value="b"> 1</label><br>
+            <label><input type="radio" name="lq5" value="c"> Undefined</label>
+
+            <br><br>
+
+            <button type="button" onclick="checkLogicQuiz()">Submit Answers</button>
+            <button type="reset" onclick="resetLogicQuiz()">Reset Quiz</button>
+
+            <h3 id="logic-quiz-result">Your result will appear here.</h3>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     LOGIC GATES QUICK REVISION
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Logic Gates Quick Revision Notes</h2>
+
+    <div class="pt-info-card">
+
+        <ul>
+            <li><strong>Logic Gates:</strong> Basic building blocks of digital circuits.</li>
+            <li><strong>Binary Values:</strong> 0 represents LOW and 1 represents HIGH.</li>
+            <li><strong>AND Gate:</strong> Output is 1 when all inputs are 1.</li>
+            <li><strong>OR Gate:</strong> Output is 1 when at least one input is 1.</li>
+            <li><strong>NOT Gate:</strong> Produces the opposite of its input.</li>
+            <li><strong>NAND Gate:</strong> Complement of AND.</li>
+            <li><strong>NOR Gate:</strong> Complement of OR.</li>
+            <li><strong>XOR Gate:</strong> Output is 1 when inputs are different.</li>
+            <li><strong>XNOR Gate:</strong> Output is 1 when inputs are equal.</li>
+            <li><strong>Universal Gates:</strong> NAND and NOR.</li>
+            <li><strong>Truth Table:</strong> Shows outputs for every possible input combination.</li>
+            <li><strong>Boolean Algebra:</strong> Mathematical system used to represent digital logic.</li>
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     LOGIC GATES TECHNICAL GLOSSARY
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Logic Gates Technical Glossary</h2>
+
+    <div class="pt-info-card">
+
+        <ul>
+            <li><strong>Logic Gate:</strong> An electronic circuit that performs a logical operation.</li>
+
+            <li><strong>Boolean Algebra:</strong> A mathematical system used to represent and simplify digital logic.</li>
+
+            <li><strong>Binary:</strong> A number system that uses only 0 and 1.</li>
+
+            <li><strong>Logic Level:</strong> The voltage range representing binary LOW or HIGH.</li>
+
+            <li><strong>Truth Table:</strong> A table showing all possible input combinations and their outputs.</li>
+
+            <li><strong>Universal Gate:</strong> A gate, such as NAND or NOR, that can be used to construct any logic function.</li>
+
+            <li><strong>Complement:</strong> The opposite logical value of a signal.</li>
+
+            <li><strong>Propagation Delay:</strong> The time taken for a change in input to affect the output.</li>
+
+            <li><strong>Fan-In:</strong> The number of inputs a logic gate can accept.</li>
+
+            <li><strong>Fan-Out:</strong> The maximum number of standard logic inputs that one gate output can drive.</li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- ======================================
+     LOGIC GATES LEARNING OBJECTIVES
+====================================== -->
+
+<section class="pt-content">
+
+    <h2>Learning Objectives</h2>
+
+    <div class="pt-info-card">
+
+        <p>After completing this Logic Gates Laboratory, students will be able to:</p>
+
+        <ul>
+            <li>Understand the basic concept of digital logic gates.</li>
+            <li>Differentiate between AND, OR and NOT gates.</li>
+            <li>Explain the working of NAND, NOR, XOR and XNOR gates.</li>
+            <li>Read and interpret logic gate truth tables.</li>
+            <li>Understand Boolean expressions for different gates.</li>
+            <li>Operate the interactive Logic Gates Simulator.</li>
+            <li>Identify universal gates and their importance.</li>
+            <li>Recognize real-world applications of logic gates.</li>
+        </ul>
+
+    </div>
+
+</section>
+
+    <footer>
+        <p>© 2026 ELECTRO-3D LAB | Digital Electronics Laboratory</p>
+    </footer>
+
+</body>
+</html>

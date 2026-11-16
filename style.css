@@ -1404,3 +1404,471 @@ body:has(#phototransistor-viewer) footer {
         gap: 15px;
     }
 }
+
+/* ======================================
+   PHOTOTRANSISTOR CAMERA BACKGROUND
+====================================== */
+
+body:has(#phototransistor-viewer) #phototransistor-camera-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+body:has(#phototransistor-viewer) #phototransistor-viewer canvas {
+    position: relative;
+    z-index: 1;
+}
+
+body:has(#phototransistor-viewer) .mosfet-overlay {
+    position: absolute;
+    z-index: 2;
+}
+
+/* ======================================
+   PHOTOTRANSISTOR EDUCATIONAL CONTENT
+====================================== */
+
+.pt-content {
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 35px;
+    color: #ffffff;
+    background: #111d31;
+    border: 1px solid #263b59;
+    border-radius: 15px;
+}
+
+.pt-content h2 {
+    text-align: center;
+    color: #38bdf8;
+    margin-bottom: 25px;
+}
+
+.pt-content > p {
+    line-height: 1.8;
+    color: #cbd5e1;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.pt-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.pt-info-card {
+    padding: 22px;
+    background: #172944;
+    border: 1px solid #294565;
+    border-radius: 12px;
+}
+
+.pt-info-card h3 {
+    color: #38bdf8;
+    margin-bottom: 12px;
+}
+
+.pt-info-card p {
+    color: #cbd5e1;
+    line-height: 1.7;
+}
+
+@media (max-width: 650px) {
+    .pt-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pt-content {
+        padding: 20px;
+    }
+}
+
+/* ======================================
+   JFET LABORATORY STYLING
+====================================== */
+
+#jfet-viewer {
+    position: relative;
+    width: 85%;
+    height: 520px;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #080e1b;
+}
+
+#jfet-viewer canvas {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#jfet-camera-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0;
+    transform: scaleX(-1);
+}
+
+#jfet-viewer .mosfet-overlay {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 3;
+    color: #00eaff;
+    font-weight: bold;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+#jfet-rotate,
+#jfet-reset,
+#jfet-start-camera,
+#jfet-reset-camera {
+    padding: 11px 20px;
+    margin: 8px;
+    border: none;
+    border-radius: 8px;
+    background: #087cf0;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#jfet-rotate:hover,
+#jfet-reset:hover,
+#jfet-start-camera:hover,
+#jfet-reset-camera:hover {
+    background: #005bc4;
+}
+
+#jfet-camera-status {
+    color: #00eaff;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 12px;
+}
+
+@media (max-width: 768px) {
+
+    #jfet-viewer {
+        width: 100%;
+        height: 400px;
+    }
+
+}
+
+/* ======================================
+   JFET LABORATORY - COMPLETE PAGE DESIGN
+====================================== */
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #080e1b;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* NAVBAR */
+
+.navbar {
+    width: 100%;
+    min-height: 70px;
+    padding: 0 6%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #101a2e;
+    border-bottom: 1px solid #263653;
+}
+
+.navbar h2 {
+    color: #00d9ff;
+    font-size: 23px;
+    letter-spacing: 1px;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 25px;
+}
+
+.navbar nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.navbar nav a:hover {
+    color: #00d9ff;
+}
+
+/* INTRO SECTION */
+
+.bjt-intro {
+    text-align: center;
+    padding: 45px 20px 30px;
+}
+
+.bjt-intro h1 {
+    font-size: 34px;
+    color: #00d9ff;
+    margin-bottom: 12px;
+}
+
+.bjt-intro p {
+    max-width: 700px;
+    margin: auto;
+    color: #b9c7dc;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* LABORATORY SECTION */
+
+.bjt-lab {
+    width: 100%;
+    padding: 20px 0 50px;
+}
+
+.bjt-panel {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px;
+    box-sizing: border-box;
+    background: #111d32;
+    border: 1px solid #263b5c;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+}
+
+.bjt-panel h2 {
+    text-align: center;
+    color: #00d9ff;
+    margin-bottom: 20px;
+}
+
+/* 3D VIEWER */
+
+#jfet-viewer {
+    position: relative;
+    width: 85%;
+    height: 520px;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #080e1b;
+    border: 1px solid #29476c;
+}
+
+#jfet-viewer canvas {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#jfet-camera-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0;
+    transform: scaleX(-1);
+}
+
+#jfet-viewer .mosfet-overlay {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 3;
+    color: #00eaff;
+    font-weight: bold;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+/* CONTROL BUTTONS */
+
+.bjt-controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.bjt-controls button {
+    padding: 12px 20px;
+    margin: 7px;
+    border: none;
+    border-radius: 8px;
+    background: #087cf0;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.bjt-controls button:hover {
+    background: #005bc4;
+    transform: translateY(-2px);
+}
+
+#jfet-camera-status {
+    color: #00eaff;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 12px;
+}
+
+/* FOOTER */
+
+footer {
+    width: 100%;
+    padding: 22px 10px;
+    box-sizing: border-box;
+    text-align: center;
+    background: #101a2e;
+    border-top: 1px solid #263653;
+    color: #9fb1ca;
+    font-size: 14px;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .navbar nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .bjt-intro h1 {
+        font-size: 27px;
+    }
+
+    .bjt-panel {
+        width: 95%;
+        padding: 15px;
+    }
+
+    #jfet-viewer {
+        width: 100%;
+        height: 400px;
+    }
+
+    .bjt-controls button {
+        margin: 5px;
+    }
+
+}
+
+/* ======================================
+   LOGIC GATES SIMULATOR
+====================================== */
+
+.logic-simulator {
+    max-width: 750px;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.logic-simulator select {
+    width: 80%;
+    max-width: 350px;
+    padding: 12px;
+    margin: 15px auto 25px;
+    border-radius: 8px;
+    border: 1px solid #38bdf8;
+    background: #101d32;
+    color: white;
+    font-size: 16px;
+}
+
+.logic-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+    margin: 25px 0;
+}
+
+.logic-inputs button {
+    width: 75px;
+    height: 65px;
+    border: 2px solid #38bdf8;
+    border-radius: 12px;
+    background: #14243b;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.logic-inputs button:hover {
+    background: #1e4265;
+}
+
+.logic-output {
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 300px;
+    border-radius: 15px;
+    background: #101d32;
+}
+
+#gate-output {
+    font-size: 55px;
+    font-weight: bold;
+    color: #38bdf8;
+    margin: 10px;
+}
+
+#gate-explanation {
+    color: #cbd5e1;
+}
+
+#logic-reset {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    background: #087ea4;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#logic-reset:hover {
+    background: #0b9bc8;
+}
+
+@media (max-width: 600px) {
+
+    .logic-inputs {
+        gap: 35px;
+    }
+
+}
